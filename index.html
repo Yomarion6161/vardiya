@@ -859,6 +859,77 @@
       size: A4 landscape;
       margin: 8mm;
     }
+  /* =========================
+   MOBİL (TABLO → KART)
+   ========================= */
+@media (max-width: 768px) {
+
+  body {
+    font-size: 15px;
+    overflow-x: hidden;
+  }
+
+  .tableWrap {
+    overflow: visible;
+  }
+
+  table {
+    min-width: 0 !important;
+  }
+
+  thead {
+    display: none;
+  }
+
+  table,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+    width: 100%;
+  }
+
+  tr {
+    background: var(--paper);
+    margin-bottom: 18px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow2);
+    overflow: hidden;
+  }
+
+  tbody th {
+    background: linear-gradient(90deg, var(--brand), var(--accent));
+    color: #fff;
+    padding: 14px 16px;
+    border: none;
+  }
+
+  td {
+    padding: 12px 14px;
+    border: none;
+    border-bottom: 1px dashed rgba(0,0,0,.15);
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  .cell {
+    min-height: unset;
+    gap: 8px;
+  }
+
+  .shiftBadge {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  .chip {
+    font-size: 12px;
+  }
+}
+
     @media print {
       body { background: white; }
       body::before { display: none; }
@@ -1735,4 +1806,5 @@
 </body>
 
 </html>
+
 
