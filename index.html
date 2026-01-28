@@ -729,83 +729,167 @@
       :root { --day-column-width: 110px; }
     }
 
-    /* Mobil uyumluluk için medya sorgusu */
-    @media (max-width: 768px) {
-      :root {
-        --container: calc(100vw - 20px); /* Sayfa genişliğini ekran genişliğine göre ayarla */
-        --day-column-width: 100px;       /* Gün sütunu genişliğini küçült */
-      }
+/* Mevcut :root ve genel stiller aynı kalabilir */
 
-      body {
-        font-size: 14px; /* Yazı boyutunu küçült */
-      }
+/* === MOBİL KART GÖRÜNÜMÜ - ANA DÜZELTME === */
+@media (max-width: 768px) {
+  :root {
+    --container: 100%;
+    --day-column-width: 100%;
+  }
 
-      .nav {
-        flex-direction: column; /* Menü elemanlarını dikey sırala */
-        gap: 12px;              /* Elemanlar arası boşluk */
-      }
+  body {
+    font-size: 15px;
+    padding: 0 8px;
+  }
 
-      .hero {
-        grid-template-columns: 1fr; /* Hero alanını tek sütun yap */
-        padding: 16px;              /* İç boşluk */
-      }
+  .container {
+    padding: 0 8px;
+  }
 
-      .formRow {
-        grid-template-columns: 1fr; /* Form satırlarını tek sütun yap */
-        gap: 8px;
-      }
+  header .nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
 
-      .panel {
-        border-radius: 16px; /* Köşeleri biraz yuvarlat */
-        padding: 12px;       /* İç boşluk */
-      }
+  .navActions, .pill, .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
 
-      .btn {
-        width: 100%;           /* Butonları tam genişlik yap */
-        justify-content: center; /* Buton içeriğini ortala */
-      }
+  .hero, .section {
+    margin: 16px 0;
+    padding: 16px;
+  }
 
-      body {
-        font-size: 15px;
-        overflow-x: hidden;
-      }
+  .formRow, .grid2 {
+    grid-template-columns: 1fr;
+  }
 
-      .tableWrap {
-        overflow: visible;
-      }
+  .tableWrap {
+    overflow-x: visible !important;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+  }
 
-      table {
-        min-width: 0 !important;
-      }
+  table, thead, tbody, tr, th, td {
+    display: block;
+    width: 100% !important;
+  }
 
-      thead {
-        display: none;
-      }
+  thead {
+    display: none !important;
+  }
 
-      table,
-      tbody,
-      tr,
-      th,
-      td {
-        display: block;
-        width: 100%;
-      }
+  tr {
+    display: block;
+    margin: 0 0 24px 0;
+    padding: 0;
+    background: var(--paper);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow2);
+    border: 1px solid rgba(20,20,20,.08);
+  }
 
-      tr {
-        background: var(--paper);
-        margin-bottom: 22px;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow2);
-        overflow: hidden;
-      }
+  tbody th {
+    display: block;
+    background: linear-gradient(90deg, var(--brand), var(--accent));
+    color: white;
+    padding: 16px;
+    font-size: 1.1rem;
+    text-align: center;
+    border: none;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
 
-      tbody th {
-        background: linear-gradient(90deg, var(--brand), var(--accent));
-        color: #fff;
-        padding: 14px 16px;
-        border: none;
-        font-size: 16px;
-      }
+  td {
+    display: block;
+    padding: 12px 16px;
+    border: none;
+    border-bottom: 1px dashed rgba(20,20,20,.15);
+    background: rgba(255,255,255,.75);
+  }
+
+  td:last-child {
+    border-bottom: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+
+  /* Hücre içi düzenlemeler */
+  .cell {
+    min-height: auto;
+    gap: 12px;
+  }
+
+  .cellTop {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .shiftBadge {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .editBtn {
+    padding: 8px;
+  }
+
+  .names {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    flex: 1 1 auto;
+    min-width: 120px;
+    max-width: none;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .cellNote {
+    font-size: 14px;
+    min-height: 60px;
+    padding: 10px 12px;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .stats {
+    text-align: center;
+    font-size: 14px;
+  }
+}
+
+/* Daha küçük ekranlar için ince ayar (480px altı) */
+@media (max-width: 480px) {
+  .chip {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .shiftBadge {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  tbody th {
+    font-size: 1rem;
+    padding: 14px;
+  }
+}
 
       td {
         padding: 12px 14px;
@@ -1749,3 +1833,4 @@
       });
     })();
   </script>
+
