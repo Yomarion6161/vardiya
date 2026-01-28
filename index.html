@@ -32,6 +32,58 @@
       --container: min(1140px, calc(100vw - 40px));
       --day-column-width: 140px;   /* ← Gün sütunu genişliği buradan kontrol ediliyor */
     }
+    /* ==================================
+     MOBİL UYUMLULUK – BURAYA EKLE
+     ================================== */
+  @media (max-width: 768px) {
+
+    body {
+      font-size: 15px;
+    }
+
+    table {
+      display: block;
+      width: 100%;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tbody, tr, td, th {
+      display: block;
+      width: 100%;
+    }
+
+    tr {
+      background: var(--paper);
+      margin-bottom: 14px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      padding: 10px 0;
+    }
+
+    td {
+      padding: 10px 14px;
+      border: none;
+      border-bottom: 1px dashed rgba(0,0,0,.15);
+    }
+
+    td:last-child {
+      border-bottom: none;
+    }
+
+    td::before {
+      content: attr(data-label);
+      display: block;
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+  }
+</style>
 
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -1608,4 +1660,5 @@
 })();
 </script>
 </body>
+
 </html>
