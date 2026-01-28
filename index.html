@@ -9,7 +9,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400,600,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -729,227 +729,11 @@
       :root { --day-column-width: 110px; }
     }
 
-@media (max-width: 768px) {
-  tbody tr {
-  overflow: visible !important;
-  min-height: auto !important;
-  height: auto !important;
-}
-
-td:last-of-type,
-tr:last-child td {
-  overflow: visible !important;
-  height: auto !important;
-  min-height: 100px;          /* son hücreye minimum yükseklik ver */
-  padding-bottom: 24px !important;  /* altta ekstra boşluk */
-}
-  :root {
-    --container: 100%;
-    --day-column-width: 100%;
-  }
-
-  body {
-    font-size: 15px;
-    padding: 0 8px;
-  }
-
-  .container { padding: 0 8px; }
-
-  header .nav {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .navActions, .pill, .btn {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .hero, .section {
-    margin: 16px 0;
-    padding: 16px;
-  }
-
-  .formRow, .grid2 {
-    grid-template-columns: 1fr;
-  }
-
-  .tableWrap {
-    overflow-x: visible !important;
-    overflow-y: visible !important;     /* ← Ekstra: dikey taşmayı da aç */
-    border: none;
-    background: transparent;
-    box-shadow: none;
-    padding: 0;
-  }
-
-  table {
-    width: 100% !important;
-    min-width: 0 !important;
-    border-collapse: separate !important;
-    border-spacing: 0 16px !important;   /* Kartlar arası boşluk */
-  }
-
-  thead { display: none !important; }
-
-  tbody tr {
-    display: block;
-    margin: 0 0 24px 0;
-    padding: 0;
-    background: var(--paper);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow2);
-    border: 1px solid rgba(20,20,20,.08);
-    overflow: visible !important;        /* ← Taşmayı engelleme */
-    min-height: auto;
-  }
-
-  tbody th {
-    display: block;
-    background: linear-gradient(90deg, var(--brand), var(--accent));
-    color: white;
-    padding: 16px;
-    font-size: 1.1rem;
-    text-align: center;
-    border: none;
-    border-radius: var(--radius) var(--radius) 0 0;
-    margin: 0;
-  }
-
-  td {
-    display: block;
-    padding: 12px 16px;
-    border: none;
-    border-bottom: 1px dashed rgba(20,20,20,.15);
-    background: rgba(255,255,255,.75);
-    margin: 0;
-  }
-
-  td:last-of-type {
-    border-bottom: none !important;
-    border-radius: 0 0 var(--radius) var(--radius);
-    padding-bottom: 16px;                 /* ← En altta ekstra boşluk */
-  }
-
-  /* Hücre içeriği için son temizlik */
-  .cell {
-    min-height: auto !important;
-    gap: 12px;
-    padding: 0;
-  }
-
-  .cellTop {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .names {
-    gap: 8px;
-  }
-
-  .chip {
-    flex: 1 1 45%;
-    min-width: 120px;
-    justify-content: space-between;
-  }
-
-  .cellNote {
-    width: 100%;
-    margin-top: 8px;
-    font-size: 14px;
-    min-height: 60px;
-  }
-
-  .bottomBar {
-    flex-direction: column;
-    gap: 16px;
-    text-align: center;
-  }
-}
-
-  .stats {
-    text-align: center;
-    font-size: 14px;
-  }
-}
-
-/* Daha küçük ekranlar için ince ayar (480px altı) */
-@media (max-width: 480px) {
-  .chip {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  .shiftBadge {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  tbody th {
-    font-size: 1rem;
-    padding: 14px;
-  }
-}
-
-      td {
-        padding: 12px 14px;
-        border: none;
-        border-bottom: 1px dashed rgba(0,0,0,.15);
-        background: rgba(255,255,255,.65);
-      }
-
-      td:last-child {
-        border-bottom: none;
-      }
-
-      .cell {
-        min-height: unset;
-        gap: 8px;
-      }
-
-      /* === MOBİL DERİNLEŞTİRME === */
-
-      .cellTop {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-      }
-
-      .editBtn {
-        align-self: flex-end;
-      }
-
-      .names {
-        gap: 10px;
-      }
-
-      .chip {
-        width: 100%;
-        justify-content: space-between;
-        font-size: 14px;
-      }
-
-      .chip span {
-        max-width: calc(100% - 32px);
-      }
-
-      .cellNote {
-        font-size: 14px;
-        min-height: 44px;
-      }
-    }
-
     /* PRINT */
     @page {
       size: A4 landscape;
       margin: 8mm;
     }
-
     @media print {
       body { background: white; }
       body::before { display: none; }
@@ -1001,845 +785,827 @@ tr:last-child td {
 </head>
 
 <body>
-  <header>
-    <div class="container">
-      <div class="nav" role="navigation" aria-label="Üst menü">
-        <a class="brand" href="#top" aria-label="VardiyaPlan ana sayfa">
-          <span class="mark" aria-hidden="true"></span>
-          <span>
-            <h1>VardiyaPlan</h1>
-            <p>Gün sabit • vardiyaya isim yaz • yazdır</p>
-          </span>
-        </a>
+<header>
+  <div class="container">
+    <div class="nav" role="navigation" aria-label="Üst menü">
+      <a class="brand" href="#top" aria-label="VardiyaPlan ana sayfa">
+        <span class="mark" aria-hidden="true"></span>
+        <span>
+          <h1>VardiyaPlan</h1>
+          <p>Gün sabit • vardiyaya isim yaz • yazdır</p>
+        </span>
+      </a>
 
-        <div class="navActions">
-          <div class="pill" aria-label="Hafta seçimi">
-            <label for="weekStart">Hafta</label>
-            <select id="weekStart" aria-label="Hafta başlangıcı">
-              <option value="auto" selected>Bu hafta</option>
-              <option value="next">Gelecek hafta</option>
-              <option value="custom">Tarih seç…</option>
-            </select>
-          </div>
+      <div class="navActions">
+        <div class="pill" aria-label="Hafta seçimi">
+          <label for="weekStart">Hafta</label>
+          <select id="weekStart" aria-label="Hafta başlangıcı">
+            <option value="auto" selected>Bu hafta</option>
+            <option value="next">Gelecek hafta</option>
+            <option value="custom">Tarih seç…</option>
+          </select>
+        </div>
 
-          <button class="btn secondary" id="btnPrint" type="button" title="Yazdır">
+        <button class="btn secondary" id="btnPrint" type="button" title="Yazdır">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 8V5.5A2.5 2.5 0 0 1 9.5 3h5A2.5 2.5 0 0 1 17 5.5V8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M7 17h10v4H7v-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M6 17H5a2 2 0 0 1-2-2v-4a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v4a2 2 0 0 1-2 2h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Yazdır
+        </button>
+
+        <button class="btn" id="btnExport" type="button" title="JSON dışa aktar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 14v4a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Dışa Aktar
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="container">
+    <section class="hero reveal" aria-label="Vardiya planlama alanı">
+      <div>
+        <div class="kicker">
+          <span class="kdot" aria-hidden="true"></span>
+          <span>Gün bazlı tablo</span>
+        </div>
+
+        <h2>Vardiya planı.</h2>
+
+        <div class="heroActions">
+          <button class="btn" id="btnOpenAssign" type="button">
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M7 8V5.5A2.5 2.5 0 0 1 9.5 3h5A2.5 2.5 0 0 1 17 5.5V8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M7 17h10v4H7v-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M6 17H5a2 2 0 0 1-2-2v-4a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v4a2 2 0 0 1-2 2h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M8 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            Yazdır
+            Personel Ata / Düzenle
           </button>
-
-          <button class="btn" id="btnExport" type="button" title="JSON dışa aktar">
+          <button class="btn secondary" id="btnClearWeek" type="button" title="Bu haftayı temizle">
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M4 14v4a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M3 6h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7 6l1 16h8l1-16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            Dışa Aktar
+            Haftayı Temizle
+          </button>
+          <button class="btn secondary" id="btnSave" type="button" title="Yerel kaydet">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 21h14a2 2 0 0 0 2-2V7l-4-4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M7 21v-8h10v8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M8 3v4h8V3" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+            Kaydet
           </button>
         </div>
       </div>
-    </div>
-  </header>
 
-  <main id="top">
-    <div class="container">
-      <section class="hero reveal" aria-label="Vardiya planlama alanı">
-        <div>
-          <div class="kicker">
-            <span class="kdot" aria-hidden="true"></span>
-            <span>Gün bazlı tablo</span>
+      <aside class="panel reveal d2" aria-label="Personel ve notlar">
+        <div class="panelHeader">
+          <div>
+            <h3>Ayarlar</h3>
+            <p>Personel listesini girin. Planı bu cihazda kaydedebilir, yazdırabilir veya JSON dışa aktarabilirsiniz.</p>
           </div>
-
-          <h2>Vardiya planı.</h2>
-
-          <div class="heroActions">
-            <button class="btn" id="btnOpenAssign" type="button">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              Personel Ata / Düzenle
-            </button>
-            <button class="btn secondary" id="btnClearWeek" type="button" title="Bu haftayı temizle">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3 6h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M7 6l1 16h8l1-16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              Haftayı Temizle
-            </button>
-            <button class="btn secondary" id="btnSave" type="button" title="Yerel kaydet">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 21h14a2 2 0 0 0 2-2V7l-4-4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M7 21v-8h10v8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M8 3v4h8V3" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              </svg>
-              Kaydet
-            </button>
-          </div>
+          <span class="tag" title="Yerel kayıt">
+            <span class="swatch" style="background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), transparent 55%), var(--brand);"></span>
+            Yerel kayıt
+          </span>
         </div>
 
-        <aside class="panel reveal d2" aria-label="Personel ve notlar">
-          <div class="panelHeader">
-            <div>
-              <h3>Ayarlar</h3>
-              <p>Personel listesini girin. Planı bu cihazda kaydedebilir, yazdırabilir veya JSON dışa aktarabilirsiniz.</p>
-            </div>
-            <span class="tag" title="Yerel kayıt">
-              <span class="swatch" style="background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), transparent 55%), var(--brand);"></span>
-              Yerel kayıt
-            </span>
-          </div>
-
-          <div class="panelBody">
-            <div class="formRow">
-              <div class="field">
-                <label for="teamName">Birim / Ekip adı</label>
-                <div class="control">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M4 20V8.5A2.5 2.5 0 0 1 6.5 6h11A2.5 2.5 0 0 1 20 8.5V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M8 6V4.8A2.8 2.8 0 0 1 10.8 2h2.4A2.8 2.8 0 0 1 16 4.8V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  <input id="teamName" type="text" placeholder="Örn: Depo Ekibi / Güvenlik / Çağrı Merkezi" autocomplete="organization"/>
-                </div>
-              </div>
-
-              <div class="field">
-                <label for="timezone">Saat düzeni</label>
-                <div class="control">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  <input id="timezone" type="text" value="TR (24 saat)" aria-label="Saat düzeni" />
-                </div>
+        <div class="panelBody">
+          <div class="formRow">
+            <div class="field">
+              <label for="teamName">Birim / Ekip adı</label>
+              <div class="control">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 20V8.5A2.5 2.5 0 0 1 6.5 6h11A2.5 2.5 0 0 1 20 8.5V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M8 6V4.8A2.8 2.8 0 0 1 10.8 2h2.4A2.8 2.8 0 0 1 16 4.8V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <input id="teamName" type="text" placeholder="Örn: Depo Ekibi / Güvenlik / Çağrı Merkezi" autocomplete="organization"/>
               </div>
             </div>
 
             <div class="field">
-              <label for="employeesInput">Personel (virgülle ayır)</label>
+              <label for="timezone">Saat düzeni</label>
               <div class="control">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M16 11a4 4 0 1 0-8 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <input id="employeesInput" type="text" placeholder="Örn: DAVUT, YUSUF, ELİF, ALPEREN" />
+                <input id="timezone" type="text" value="TR (24 saat)" aria-label="Saat düzeni" />
               </div>
             </div>
-
-            <div class="field" style="margin-top:10px;">
-              <label for="notes">Notlar</label>
-              <div class="control" style="align-items:flex-start;">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="margin-top:2px;">
-                  <path d="M7 3h10a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                  <path d="M9 7h6M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                <textarea id="notes" placeholder="Örn: Pazartesi eğitim, Çarşamba bakım, izin talepleri…"></textarea>
-              </div>
-            </div>
-
-            <div class="smallActions">
-              <button class="btn secondary" id="btnApplyEmployees" type="button">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Personeli Uygula
-              </button>
-              <button class="btn secondary" id="btnResetDemo" type="button" title="Demo veriye dön">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 20a8 8 0 1 0-8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M4 4v6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Demo
-              </button>
-            </div>
           </div>
-        </aside>
-      </section>
 
-      <section class="section fadeUp" aria-label="Gün bazlı vardiya planı">
-        <div class="sectionHead">
-          <div>
-            <h3 id="weekTitle">Hafta Planı</h3>
-            <p id="weekSubtitle">—</p>
-          </div>
-          <div class="legend" aria-label="Vardiya açıklamaları">
-            <span class="tag"><span class="swatch" style="background: var(--brand);"></span> 07:00–15:00</span>
-            <span class="tag"><span class="swatch" style="background: var(--brand08);"></span> 08:00–16:00</span>
-            <span class="tag"><span class="swatch" style="background: var(--accent);"></span> 15:00–23:00</span>
-            <span class="tag"><span class="swatch" style="background: var(--warn);"></span> 23:00–07:00</span>
-            <span class="tag"><span class="swatch" style="background: var(--brand2);"></span> İzin</span>
-          </div>
-        </div>
-
-        <div class="tableWrap" role="region" aria-label="Vardiya tablosu" tabindex="0">
-          <table>
-            <thead>
-              <tr id="headRow">
-                <th scope="col">Gün</th>
-                <th scope="col">07:00–15:00</th>
-                <th scope="col">08:00–16:00</th>
-                <th scope="col">15:00–23:00</th>
-                <th scope="col">23:00–07:00</th>
-                <th scope="col">İzin</th>
-              </tr>
-            </thead>
-            <tbody id="tbody"></tbody>
-          </table>
-        </div>
-
-        <div class="bottomBar">
-          <div class="stats" id="stats"><strong>Özet:</strong> —</div>
-          <div class="smallActions" aria-label="Hafta işlemleri">
-            <button class="btn" id="btnSave2" type="button" title="Yerel kaydet">Kaydet</button>
-          </div>
-        </div>
-      </section>
-
-      <footer class="fadeUp" style="margin-top: 18px; color: var(--muted); font-size: 12.5px; line-height: 1.6;">
-        <p style="margin: 0;">
-          <strong>Not:</strong> Veriler yalnızca bu tarayıcıda <code>localStorage</code>'a kaydedilir.
-        </p>
-      </footer>
-    </div>
-  </main>
-
-  <!-- Assign Modal -->
-  <dialog id="assignDialog" aria-labelledby="assignTitle">
-    <div class="modalHead">
-      <div>
-        <h4 id="assignTitle">Personel Ata / Düzenle</h4>
-        <p id="assignDesc">Bir gün ve vardiya seçin. Personelleri işaretleyerek ekleyin/çıkarın.</p>
-      </div>
-      <button class="xbtn" type="button" id="btnCloseAssign" aria-label="Kapat">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </button>
-    </div>
-
-    <div class="modalBody">
-      <div class="grid2">
-        <div class="field">
-          <label for="mDay">Gün</label>
-          <div class="control">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M8 3v3M16 3v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M4 8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M6 5h12a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-            <select id="mDay" aria-label="Gün seç"></select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="mShift">Vardiya</label>
-          <div class="control">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 2v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M12 7a5 5 0 1 0 5 5 5 5 0 0 0-5-5Z" stroke="currentColor" stroke-width="2"/>
-            </svg>
-            <select id="mShift" aria-label="Vardiya seç">
-              <option value="G">07:00–15:00</option>
-              <option value="08">08:00–16:00</option>
-              <option value="A">15:00–23:00</option>
-              <option value="N">23:00–07:00</option>
-              <option value="İZİN">İzin</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="listBox" aria-label="Personel seçim listesi">
-        <h5>Personeller</h5>
-        <div class="checkGrid" id="mPeople"></div>
-      </div>
-
-      <div class="inlineNote" id="mPreview">Seçim yapınca burada özet göreceksin.</div>
-
-      <div class="smallActions" style="margin-top: 12px;">
-        <button class="btn" id="btnApplyAssign" type="button">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Uygula
-        </button>
-        <button class="btn secondary" id="btnCancelAssign" type="button">Vazgeç</button>
-      </div>
-    </div>
-  </dialog>
-
-  <script>
-    (function(){
-      const DAYS = [
-        {key:"Mon", tr:"Pzt"},
-        {key:"Tue", tr:"Sal"},
-        {key:"Wed", tr:"Çar"},
-        {key:"Thu", tr:"Per"},
-        {key:"Fri", tr:"Cum"},
-        {key:"Sat", tr:"Cmt"},
-        {key:"Sun", tr:"Paz"}
-      ];
-
-      const SHIFTS = [
-        {key:"G",   label:"07:00–15:00"},
-        {key:"08",  label:"08:00–16:00"},
-        {key:"A",   label:"15:00–23:00"},
-        {key:"N",   label:"23:00–07:00"},
-        {key:"İZİN",label:"İzin"}
-      ];
-
-      const SHIFT_UI = {
-        "G":   {chipDot:"var(--brand)"},
-        "08":  {chipDot:"var(--brand08)"},
-        "A":   {chipDot:"var(--accent)"},
-        "N":   {chipDot:"var(--warn)"},
-        "İZİN":{chipDot:"var(--brand2)"}
-      };
-
-      const els = {
-        tbody: document.getElementById('tbody'),
-        weekTitle: document.getElementById('weekTitle'),
-        weekSubtitle: document.getElementById('weekSubtitle'),
-        stats: document.getElementById('stats'),
-
-        teamName: document.getElementById('teamName'),
-        employeesInput: document.getElementById('employeesInput'),
-        notes: document.getElementById('notes'),
-
-        btnApplyEmployees: document.getElementById('btnApplyEmployees'),
-        btnResetDemo: document.getElementById('btnResetDemo'),
-        btnSave: document.getElementById('btnSave'),
-        btnSave2: document.getElementById('btnSave2'),
-        btnExport: document.getElementById('btnExport'),
-        btnPrint: document.getElementById('btnPrint'),
-        btnClearWeek: document.getElementById('btnClearWeek'),
-        btnOpenAssign: document.getElementById('btnOpenAssign'),
-
-        weekStart: document.getElementById('weekStart'),
-
-        dialog: document.getElementById('assignDialog'),
-        btnCloseAssign: document.getElementById('btnCloseAssign'),
-        btnCancelAssign: document.getElementById('btnCancelAssign'),
-        btnApplyAssign: document.getElementById('btnApplyAssign'),
-        mDay: document.getElementById('mDay'),
-        mShift: document.getElementById('mShift'),
-        mPeople: document.getElementById('mPeople'),
-        mPreview: document.getElementById('mPreview')
-      };
-
-      const STORAGE_KEY = "vardiyaPlan.dayBased.v4.notes";
-      const demoEmployees = ["DAVUT", "YUSUF", "ALPEREN", "ELİF", "BOŞ"];
-
-      let state = {
-        teamName: "Hafta Planı",
-        weekStartISO: "",
-        employees: [...demoEmployees],
-        assignments: {},  // day->shift->names[]
-        cellNotes: {},    // "day|shift" -> note
-        notes: ""
-      };
-
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toISODate(d){ return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
-      function parseISODate(s){ const [y,m,dd] = s.split('-').map(Number); return new Date(y, m-1, dd); }
-
-      function startOfWeekMonday(date){
-        const d = new Date(date);
-        const day = d.getDay();
-        const diff = (day === 0 ? -6 : 1 - day);
-        d.setDate(d.getDate() + diff);
-        d.setHours(0,0,0,0);
-        return d;
-      }
-      function addDays(date, n){ const d = new Date(date); d.setDate(d.getDate()+n); return d; }
-
-      function fmtTRDate(d){
-        const months = ["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"];
-        return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-      }
-
-      function ensureAssignments(){
-        for(const day of DAYS){
-          if(!state.assignments[day.key]) state.assignments[day.key] = {};
-          for(const s of SHIFTS){
-            if(!Array.isArray(state.assignments[day.key][s.key])) state.assignments[day.key][s.key] = [];
-          }
-        }
-        const set = new Set(state.employees);
-        for(const day of DAYS){
-          for(const s of SHIFTS){
-            state.assignments[day.key][s.key] = (state.assignments[day.key][s.key] || []).filter(n => set.has(n));
-          }
-        }
-      }
-
-      function ensureCellNotes(){
-        if(!state.cellNotes || typeof state.cellNotes !== "object") state.cellNotes = {};
-      }
-
-      function renderWeekHeader(){
-        const monday = parseISODate(state.weekStartISO);
-        const sunday = addDays(monday, 6);
-        const team = (state.teamName || "Hafta Planı").trim();
-        els.weekTitle.textContent = team;
-        els.weekSubtitle.textContent = `${fmtTRDate(monday)} — ${fmtTRDate(sunday)}`;
-      }
-
-      function escapeHtml(str){
-        return String(str)
-          .replaceAll("&","&amp;")
-          .replaceAll("<","&lt;")
-          .replaceAll(">","&gt;")
-          .replaceAll('"',"&quot;")
-          .replaceAll("'","&#039;");
-      }
-
-      function chipHTML(name, shiftKey, dayKey){
-        const dot = SHIFT_UI[shiftKey]?.chipDot || "var(--ink)";
-        const safe = escapeHtml(name);
-        return `
-          <span class="chip" style="border-left: 4px solid ${dot};">
-            <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width: 220px;">${safe}</span>
-            <button class="remove" type="button" aria-label="${safe} kaldır" title="Kaldır" data-remove="1" data-day="${dayKey}" data-shift="${shiftKey}" data-name="${escapeHtml(name)}">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:14px;height:14px;">
-                <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <div class="field">
+            <label for="employeesInput">Personel (virgülle ayır)</label>
+            <div class="control">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M16 11a4 4 0 1 0-8 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
-            </button>
-          </span>
-        `;
-      }
-
-      function noteKey(dayKey, shiftKey){ return `${dayKey}|${shiftKey}`; }
-
-      function renderTable(){
-        ensureAssignments();
-        ensureCellNotes();
-        els.tbody.innerHTML = "";
-
-        const monday = parseISODate(state.weekStartISO);
-
-        for(let di=0; di<DAYS.length; di++){
-          const day = DAYS[di];
-          const date = addDays(monday, di);
-
-          const tr = document.createElement("tr");
-
-          const th = document.createElement("th");
-          th.scope = "row";
-          th.innerHTML = `
-            <div class="dayMeta">
-              <div>${day.tr}</div>
-              <small>${pad(date.getDate())}.${pad(date.getMonth()+1)}.${date.getFullYear()}</small>
-            </div>
-          `;
-          tr.appendChild(th);
-
-          for(const s of SHIFTS){
-            const td = document.createElement("td");
-            const list = state.assignments[day.key][s.key] || [];
-            const nk = noteKey(day.key, s.key);
-            const nval = state.cellNotes[nk] || "";
-
-            td.innerHTML = `
-              <div class="cell">
-                <div class="cellTop">
-                  <span class="shiftBadge" data-shift="${s.key}">
-                    <span class="dot" aria-hidden="true"></span>
-                    <span>${escapeHtml(s.label)}</span>
-                  </span>
-                  <button type="button" class="editBtn" aria-label="${day.tr} ${s.label} düzenle" title="Düzenle" data-edit="1" data-day="${day.key}" data-shift="${s.key}">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0 0-3L16.5 4.5a2.1 2.1 0 0 0-3 0L3 15v5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                      <path d="M13.5 5.5l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                  </button>
-                </div>
-
-                <div class="names">
-                  ${list.length ? list.map(n => chipHTML(n, s.key, day.key)).join("") : `<div class="empty">Henüz personel atanmadı.</div>`}
-                </div>
-
-                <textarea
-                  class="cellNote"
-                  rows="2"
-                  data-note="1"
-                  data-day="${day.key}"
-                  data-shift="${s.key}"
-                  placeholder="Not..."
-                >${escapeHtml(nval)}</textarea>
-              </div>
-            `;
-            tr.appendChild(td);
-          }
-
-          els.tbody.appendChild(tr);
-        }
-
-        els.tbody.querySelectorAll("[data-edit='1']").forEach(btn => {
-          btn.addEventListener("click", () => openAssign(btn.dataset.day, btn.dataset.shift));
-        });
-
-        els.tbody.querySelectorAll("[data-remove='1']").forEach(btn => {
-          btn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            removePerson(btn.dataset.day, btn.dataset.shift, btn.dataset.name);
-          });
-        });
-
-        els.tbody.querySelectorAll("[data-note='1']").forEach(t => {
-          t.addEventListener("input", () => {
-            const dayKey = t.dataset.day;
-            const shiftKey = t.dataset.shift;
-            state.cellNotes[noteKey(dayKey, shiftKey)] = t.value.trim();
-            saveLocalSoft();
-          });
-        });
-      }
-
-      function removePerson(dayKey, shiftKey, name){
-        ensureAssignments();
-        const arr = state.assignments[dayKey][shiftKey] || [];
-        state.assignments[dayKey][shiftKey] = arr.filter(n => n !== name);
-        saveLocalSoft();
-        renderTable();
-        computeStats();
-      }
-
-      function parseEmployees(input){
-        return input
-          .split(",")
-          .map(s => s.trim())
-          .filter(Boolean)
-          .filter((v,i,a)=>a.indexOf(v)===i);
-      }
-
-      function applyEmployees(){
-        const list = parseEmployees(els.employeesInput.value);
-        if(list.length === 0){
-          alert("Lütfen en az 1 personel adı girin.");
-          return;
-        }
-        state.employees = list;
-        ensureAssignments();
-        saveLocalSoft();
-        renderTable();
-        computeStats();
-      }
-
-      function refreshModalOptions(){
-        els.mDay.innerHTML = DAYS.map(d => `<option value="${d.key}">${d.tr}</option>`).join("");
-      }
-
-      function openAssign(dayKey, shiftKey){
-        refreshModalOptions();
-        els.mDay.value = dayKey || "Mon";
-        els.mShift.value = shiftKey || "G";
-        renderPeopleChecklist();
-        updateModalPreview();
-        if(typeof els.dialog.showModal === "function") els.dialog.showModal();
-      }
-
-      function closeAssign(){ els.dialog.close(); }
-
-      function renderPeopleChecklist(){
-        ensureAssignments();
-        const dayKey = els.mDay.value;
-        const shiftKey = els.mShift.value;
-        const selected = new Set(state.assignments[dayKey][shiftKey] || []);
-
-        els.mPeople.innerHTML = state.employees.map((name, idx) => {
-          const id = `p_${idx}_${dayKey}_${shiftKey}`.replaceAll("|","_");
-          const checked = selected.has(name) ? "checked" : "";
-          return `
-            <label class="check" for="${id}">
-              <input id="${id}" type="checkbox" value="${escapeHtml(name)}" ${checked} />
-              <span title="${escapeHtml(name)}">${escapeHtml(name)}</span>
-            </label>
-          `;
-        }).join("");
-
-        els.mPeople.querySelectorAll("input[type='checkbox']").forEach(cb => {
-          cb.addEventListener("change", updateModalPreview);
-        });
-      }
-
-      function getModalSelection(){
-        return [...els.mPeople.querySelectorAll("input[type='checkbox']:checked")].map(i => {
-          return i.closest(".check")?.querySelector("span")?.textContent?.trim() || "";
-        }).filter(Boolean);
-      }
-
-      function updateModalPreview(){
-        const dayKey = els.mDay.value;
-        const shiftKey = els.mShift.value;
-        const dayTR = DAYS.find(d => d.key === dayKey)?.tr || dayKey;
-        const shift = SHIFTS.find(s => s.key === shiftKey);
-        const names = getModalSelection();
-
-        const conflicts = [];
-        const picked = new Set(names);
-        for(const n of picked){
-          let count = 0;
-          for(const s of SHIFTS){
-            const base = new Set(state.assignments[dayKey][s.key] || []);
-            if(s.key === shiftKey){
-              if(picked.has(n)) count++;
-            }else{
-              if(base.has(n)) count++;
-            }
-          }
-          if(count > 1) conflicts.push(n);
-        }
-
-        els.mPreview.innerHTML = `
-          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-            <div style="min-width: 260px;">
-              <strong>${escapeHtml(dayTR)}</strong> •
-              <span style="color: rgba(20,20,20,.72);">${escapeHtml(shift.label)}</span>
-              <div style="margin-top:8px; color: rgba(20,20,20,.72); font-size: 13px; line-height:1.5;">
-                Seçili kişi sayısı: <strong>${names.length}</strong>
-                ${conflicts.length ? `<br><span style="color: var(--warn);"><strong>Uyarı:</strong> Aynı gün birden fazla vardiyada seçili: ${conflicts.map(escapeHtml).join(", ")}</span>` : ""}
-              </div>
-            </div>
-            <div class="shiftBadge" data-shift="${shiftKey}">
-              <span class="dot" aria-hidden="true"></span>
-              <span>${shiftKey}</span>
+              <input id="employeesInput" type="text" placeholder="Örn: Ayşe, Mehmet, Elif, Can" />
             </div>
           </div>
+
+          <div class="field" style="margin-top:10px;">
+            <label for="notes">Notlar</label>
+            <div class="control" style="align-items:flex-start;">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="margin-top:2px;">
+                <path d="M7 3h10a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M9 7h6M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <textarea id="notes" placeholder="Örn: Pazartesi eğitim, Çarşamba bakım, izin talepleri…"></textarea>
+            </div>
+          </div>
+
+          <div class="smallActions">
+            <button class="btn secondary" id="btnApplyEmployees" type="button">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Personeli Uygula
+            </button>
+            <button class="btn secondary" id="btnResetDemo" type="button" title="Demo veriye dön">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 20a8 8 0 1 0-8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M4 4v6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Demo
+            </button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section fadeUp" aria-label="Gün bazlı vardiya planı">
+      <div class="sectionHead">
+        <div>
+          <h3 id="weekTitle">Hafta Planı</h3>
+          <p id="weekSubtitle">—</p>
+        </div>
+        <div class="legend" aria-label="Vardiya açıklamaları">
+          <span class="tag"><span class="swatch" style="background: var(--brand);"></span> 07:00–15:00</span>
+          <span class="tag"><span class="swatch" style="background: var(--brand08);"></span> 08:00–16:00</span>
+          <span class="tag"><span class="swatch" style="background: var(--accent);"></span> 15:00–23:00</span>
+          <span class="tag"><span class="swatch" style="background: var(--warn);"></span> 23:00–07:00</span>
+          <span class="tag"><span class="swatch" style="background: var(--brand2);"></span> İzin</span>
+        </div>
+      </div>
+
+      <div class="tableWrap" role="region" aria-label="Vardiya tablosu" tabindex="0">
+        <table>
+          <thead>
+            <tr id="headRow">
+              <th scope="col">Gün</th>
+              <th scope="col">07:00–15:00</th>
+              <th scope="col">08:00–16:00</th>
+              <th scope="col">15:00–23:00</th>
+              <th scope="col">23:00–07:00</th>
+              <th scope="col">İzin</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="bottomBar">
+        <div class="stats" id="stats"><strong>Özet:</strong> —</div>
+        <div class="smallActions" aria-label="Hafta işlemleri">
+          <button class="btn" id="btnSave2" type="button" title="Yerel kaydet">Kaydet</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="fadeUp" style="margin-top: 18px; color: var(--muted); font-size: 12.5px; line-height: 1.6;">
+      <p style="margin: 0;">
+        <strong>Not:</strong> Veriler yalnızca bu tarayıcıda <code>localStorage</code>'a kaydedilir.
+      </p>
+    </footer>
+  </div>
+</main>
+
+<!-- Assign Modal -->
+<dialog id="assignDialog" aria-labelledby="assignTitle">
+  <div class="modalHead">
+    <div>
+      <h4 id="assignTitle">Personel Ata / Düzenle</h4>
+      <p id="assignDesc">Bir gün ve vardiya seçin. Personelleri işaretleyerek ekleyin/çıkarın.</p>
+    </div>
+    <button class="xbtn" type="button" id="btnCloseAssign" aria-label="Kapat">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="modalBody">
+    <div class="grid2">
+      <div class="field">
+        <label for="mDay">Gün</label>
+        <div class="control">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M8 3v3M16 3v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M6 5h12a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <select id="mDay" aria-label="Gün seç"></select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="mShift">Vardiya</label>
+        <div class="control">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 7a5 5 0 1 0 5 5 5 5 0 0 0-5-5Z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <select id="mShift" aria-label="Vardiya seç">
+            <option value="G">07:00–15:00</option>
+            <option value="08">08:00–16:00</option>
+            <option value="A">15:00–23:00</option>
+            <option value="N">23:00–07:00</option>
+            <option value="İZİN">İzin</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="listBox" aria-label="Personel seçim listesi">
+      <h5>Personeller</h5>
+      <div class="checkGrid" id="mPeople"></div>
+    </div>
+
+    <div class="inlineNote" id="mPreview">Seçim yapınca burada özet göreceksin.</div>
+
+    <div class="smallActions" style="margin-top: 12px;">
+      <button class="btn" id="btnApplyAssign" type="button">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Uygula
+      </button>
+      <button class="btn secondary" id="btnCancelAssign" type="button">Vazgeç</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+// Aynı JavaScript kodu (değişiklik yok, sadece stil değişti)
+(function(){
+  const DAYS = [
+    {key:"Mon", tr:"Pzt"},
+    {key:"Tue", tr:"Sal"},
+    {key:"Wed", tr:"Çar"},
+    {key:"Thu", tr:"Per"},
+    {key:"Fri", tr:"Cum"},
+    {key:"Sat", tr:"Cmt"},
+    {key:"Sun", tr:"Paz"}
+  ];
+
+  const SHIFTS = [
+    {key:"G",   label:"07:00–15:00"},
+    {key:"08",  label:"08:00–16:00"},
+    {key:"A",   label:"15:00–23:00"},
+    {key:"N",   label:"23:00–07:00"},
+    {key:"İZİN",label:"İzin"}
+  ];
+
+  const SHIFT_UI = {
+    "G":   {chipDot:"var(--brand)"},
+    "08":  {chipDot:"var(--brand08)"},
+    "A":   {chipDot:"var(--accent)"},
+    "N":   {chipDot:"var(--warn)"},
+    "İZİN":{chipDot:"var(--brand2)"}
+  };
+
+  const els = {
+    tbody: document.getElementById('tbody'),
+    weekTitle: document.getElementById('weekTitle'),
+    weekSubtitle: document.getElementById('weekSubtitle'),
+    stats: document.getElementById('stats'),
+
+    teamName: document.getElementById('teamName'),
+    employeesInput: document.getElementById('employeesInput'),
+    notes: document.getElementById('notes'),
+
+    btnApplyEmployees: document.getElementById('btnApplyEmployees'),
+    btnResetDemo: document.getElementById('btnResetDemo'),
+    btnSave: document.getElementById('btnSave'),
+    btnSave2: document.getElementById('btnSave2'),
+    btnExport: document.getElementById('btnExport'),
+    btnPrint: document.getElementById('btnPrint'),
+    btnClearWeek: document.getElementById('btnClearWeek'),
+    btnOpenAssign: document.getElementById('btnOpenAssign'),
+
+    weekStart: document.getElementById('weekStart'),
+
+    dialog: document.getElementById('assignDialog'),
+    btnCloseAssign: document.getElementById('btnCloseAssign'),
+    btnCancelAssign: document.getElementById('btnCancelAssign'),
+    btnApplyAssign: document.getElementById('btnApplyAssign'),
+    mDay: document.getElementById('mDay'),
+    mShift: document.getElementById('mShift'),
+    mPeople: document.getElementById('mPeople'),
+    mPreview: document.getElementById('mPreview')
+  };
+
+  const STORAGE_KEY = "vardiyaPlan.dayBased.v4.notes";
+  const demoEmployees = ["Ayşe Y.", "Mehmet K.", "Elif A.", "Can D.", "Zeynep S."];
+
+  let state = {
+    teamName: "Hafta Planı",
+    weekStartISO: "",
+    employees: [...demoEmployees],
+    assignments: {},  // day->shift->names[]
+    cellNotes: {},    // "day|shift" -> note
+    notes: ""
+  };
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function toISODate(d){ return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+  function parseISODate(s){ const [y,m,dd] = s.split('-').map(Number); return new Date(y, m-1, dd); }
+
+  function startOfWeekMonday(date){
+    const d = new Date(date);
+    const day = d.getDay();
+    const diff = (day === 0 ? -6 : 1 - day);
+    d.setDate(d.getDate() + diff);
+    d.setHours(0,0,0,0);
+    return d;
+  }
+  function addDays(date, n){ const d = new Date(date); d.setDate(d.getDate()+n); return d; }
+
+  function fmtTRDate(d){
+    const months = ["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"];
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  }
+
+  function ensureAssignments(){
+    for(const day of DAYS){
+      if(!state.assignments[day.key]) state.assignments[day.key] = {};
+      for(const s of SHIFTS){
+        if(!Array.isArray(state.assignments[day.key][s.key])) state.assignments[day.key][s.key] = [];
+      }
+    }
+    const set = new Set(state.employees);
+    for(const day of DAYS){
+      for(const s of SHIFTS){
+        state.assignments[day.key][s.key] = (state.assignments[day.key][s.key] || []).filter(n => set.has(n));
+      }
+    }
+  }
+
+  function ensureCellNotes(){
+    if(!state.cellNotes || typeof state.cellNotes !== "object") state.cellNotes = {};
+  }
+
+  function renderWeekHeader(){
+    const monday = parseISODate(state.weekStartISO);
+    const sunday = addDays(monday, 6);
+    const team = (state.teamName || "Hafta Planı").trim();
+    els.weekTitle.textContent = team;
+    els.weekSubtitle.textContent = `${fmtTRDate(monday)} — ${fmtTRDate(sunday)}`;
+  }
+
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  function chipHTML(name, shiftKey, dayKey){
+    const dot = SHIFT_UI[shiftKey]?.chipDot || "var(--ink)";
+    const safe = escapeHtml(name);
+    return `
+      <span class="chip" style="border-left: 4px solid ${dot};">
+        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width: 220px;">${safe}</span>
+        <button class="remove" type="button" aria-label="${safe} kaldır" title="Kaldır" data-remove="1" data-day="${dayKey}" data-shift="${shiftKey}" data-name="${escapeHtml(name)}">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:14px;height:14px;">
+            <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </span>
+    `;
+  }
+
+  function noteKey(dayKey, shiftKey){ return `${dayKey}|${shiftKey}`; }
+
+  function renderTable(){
+    ensureAssignments();
+    ensureCellNotes();
+    els.tbody.innerHTML = "";
+
+    const monday = parseISODate(state.weekStartISO);
+
+    for(let di=0; di<DAYS.length; di++){
+      const day = DAYS[di];
+      const date = addDays(monday, di);
+
+      const tr = document.createElement("tr");
+
+      const th = document.createElement("th");
+      th.scope = "row";
+      th.innerHTML = `
+        <div class="dayMeta">
+          <div>${day.tr}</div>
+          <small>${pad(date.getDate())}.${pad(date.getMonth()+1)}.${date.getFullYear()}</small>
+        </div>
+      `;
+      tr.appendChild(th);
+
+      for(const s of SHIFTS){
+        const td = document.createElement("td");
+        const list = state.assignments[day.key][s.key] || [];
+        const nk = noteKey(day.key, s.key);
+        const nval = state.cellNotes[nk] || "";
+
+        td.innerHTML = `
+          <div class="cell">
+            <div class="cellTop">
+              <span class="shiftBadge" data-shift="${s.key}">
+                <span class="dot" aria-hidden="true"></span>
+                <span>${escapeHtml(s.label)}</span>
+              </span>
+              <button type="button" class="editBtn" aria-label="${day.tr} ${s.label} düzenle" title="Düzenle" data-edit="1" data-day="${day.key}" data-shift="${s.key}">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0 0-3L16.5 4.5a2.1 2.1 0 0 0-3 0L3 15v5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M13.5 5.5l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="names">
+              ${list.length ? list.map(n => chipHTML(n, s.key, day.key)).join("") : `<div class="empty">Henüz personel atanmadı.</div>`}
+            </div>
+
+            <textarea
+              class="cellNote"
+              rows="2"
+              data-note="1"
+              data-day="${day.key}"
+              data-shift="${s.key}"
+              placeholder="Not..."
+            >${escapeHtml(nval)}</textarea>
+          </div>
         `;
+        tr.appendChild(td);
       }
 
-      function applyAssign(){
-        ensureAssignments();
-        const dayKey = els.mDay.value;
-        const shiftKey = els.mShift.value;
-        const names = getModalSelection();
+      els.tbody.appendChild(tr);
+    }
 
-        state.assignments[dayKey][shiftKey] = names.sort((a,b)=>a.localeCompare(b, "tr"));
+    els.tbody.querySelectorAll("[data-edit='1']").forEach(btn => {
+      btn.addEventListener("click", () => openAssign(btn.dataset.day, btn.dataset.shift));
+    });
 
-        saveLocalSoft();
-        renderTable();
-        computeStats();
-        closeAssign();
-      }
-
-      function clearWeek(){
-        if(!confirm("Bu haftadaki tüm atamaları temizlemek istiyor musun?")) return;
-        state.assignments = {};
-        ensureAssignments();
-        saveLocalSoft();
-        renderTable();
-        computeStats();
-      }
-
-      function computeStats(){
-        ensureAssignments();
-
-        const perPerson = {};
-        for(const n of state.employees){
-          perPerson[n] = {G:0, "08":0, A:0, N:0, "İZİN":0};
-        }
-
-        let conflictDays = 0;
-
-        for(const day of DAYS){
-          const dailySeen = new Map();
-          for(const s of SHIFTS){
-            for(const n of (state.assignments[day.key][s.key] || [])){
-              if(perPerson[n]) perPerson[n][s.key] = (perPerson[n][s.key] || 0) + 1;
-              dailySeen.set(n, (dailySeen.get(n) || 0) + 1);
-            }
-          }
-          for(const [,c] of dailySeen){
-            if(c > 1){ conflictDays++; break; }
-          }
-        }
-
-        const totals = {G:0, "08":0, A:0, N:0, "İZİN":0};
-        for(const n of state.employees){
-          for(const k of Object.keys(totals)){
-            totals[k] += perPerson[n][k] || 0;
-          }
-        }
-
-        const nights = state.employees.map(n => perPerson[n].N || 0);
-        const maxN = Math.max(...nights, 0);
-        const minN = Math.min(...nights, 0);
-
-        const warnings = [];
-        if(conflictDays) warnings.push(`Çakışma var (gün sayısı: ${conflictDays}).`);
-        if((maxN - minN) >= 2) warnings.push("Gece vardiyası dağılımı dengesiz görünüyor.");
-
-        els.stats.innerHTML = `
-          <strong>Özet:</strong>
-          Kişi: <strong>${state.employees.length}</strong> •
-          07:00–15:00: <strong>${totals.G}</strong> •
-          08:00–16:00: <strong>${totals["08"]}</strong> •
-          15:00–23:00: <strong>${totals.A}</strong> •
-          23:00–07:00: <strong>${totals.N}</strong> •
-          İzin: <strong>${totals["İZİN"]}</strong>
-          ${warnings.length ? `<br><span style="color: var(--warn);"><strong>Uyarı:</strong> ${warnings.join(" ")}</span>` : ""}
-        `;
-      }
-
-      function saveLocalSoft(){
-        state.teamName = els.teamName.value.trim() || "Hafta Planı";
-        state.notes = els.notes.value;
-        try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
-      }
-
-      function saveExplicit(){
-        saveLocalSoft();
-        alert("Kaydedildi. (Bu cihazda)");
-      }
-
-      function exportJSON(){
-        saveLocalSoft();
-        const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `vardiya-plan_${state.weekStartISO || "hafta"}.json`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-      }
-
-      function loadLocal(){
-        try{
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if(!raw) return false;
-          const data = JSON.parse(raw);
-          if(!data || typeof data !== "object") return false;
-          state = {
-            teamName: data.teamName || "Hafta Planı",
-            weekStartISO: data.weekStartISO || "",
-            employees: Array.isArray(data.employees) && data.employees.length ? data.employees : [...demoEmployees],
-            assignments: data.assignments || {},
-            cellNotes: data.cellNotes || {},
-            notes: data.notes || ""
-          };
-          return true;
-        }catch(e){ return false; }
-      }
-
-      function resetDemo(){
-        if(!confirm("Demo personel listesine dönmek istiyor musun?")) return;
-        state.employees = [...demoEmployees];
-        ensureAssignments();
-        saveLocalSoft();
-        els.employeesInput.value = state.employees.join(", ");
-        renderTable();
-        computeStats();
-      }
-
-      function setupWeekSelect(){
-        const now = new Date();
-        const monday = startOfWeekMonday(now);
-        if(!state.weekStartISO) state.weekStartISO = toISODate(monday);
-
-        els.weekStart.addEventListener("change", () => {
-          const v = els.weekStart.value;
-          const base = startOfWeekMonday(new Date());
-          if(v === "auto") state.weekStartISO = toISODate(base);
-          else if(v === "next") state.weekStartISO = toISODate(addDays(base, 7));
-          else if(v === "custom"){
-            const current = parseISODate(state.weekStartISO);
-            const picked = prompt("Hafta başlangıcı (Pazartesi) tarihi: YYYY-AA-GG", toISODate(current));
-            if(!picked) { els.weekStart.value = "auto"; return; }
-            if(!/^\d{4}-\d{2}-\d{2}$/.test(picked)){ alert("Format hatalı. Örn: 2025-02-03"); els.weekStart.value="auto"; return; }
-            state.weekStartISO = toISODate(startOfWeekMonday(parseISODate(picked)));
-          }
-          saveLocalSoft();
-          renderWeekHeader();
-          renderTable();
-          computeStats();
-        });
-      }
-
-      function setupScrollReveal(){
-        const obs = new IntersectionObserver((entries)=>{
-          entries.forEach(en=>{
-            if(en.isIntersecting){
-              en.target.classList.add("inview");
-              obs.unobserve(en.target);
-            }
-          });
-        }, {threshold: 0.12});
-        document.querySelectorAll(".fadeUp").forEach(el => obs.observe(el));
-      }
-
-      // Event listeners
-      els.btnApplyEmployees.addEventListener("click", applyEmployees);
-      els.btnResetDemo.addEventListener("click", resetDemo);
-      els.btnSave.addEventListener("click", saveExplicit);
-      els.btnSave2.addEventListener("click", saveExplicit);
-      els.btnExport.addEventListener("click", exportJSON);
-      els.btnPrint.addEventListener("click", () => window.print());
-      els.btnClearWeek.addEventListener("click", clearWeek);
-      els.btnOpenAssign.addEventListener("click", () => openAssign("Mon","G"));
-
-      els.teamName.addEventListener("input", () => { saveLocalSoft(); renderWeekHeader(); });
-      els.notes.addEventListener("input", saveLocalSoft);
-
-      els.btnCloseAssign.addEventListener("click", closeAssign);
-      els.btnCancelAssign.addEventListener("click", closeAssign);
-      els.btnApplyAssign.addEventListener("click", applyAssign);
-
-      els.mDay.addEventListener("change", () => { renderPeopleChecklist(); updateModalPreview(); });
- // Dialog dışına tıklayınca kapanması (isteğe bağlı, modern tarayıcılarda backdrop ile çalışır)
-      els.dialog.addEventListener("click", (e) => {
-        if (e.target === els.dialog) {
-          closeAssign();
-        }
+    els.tbody.querySelectorAll("[data-remove='1']").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        removePerson(btn.dataset.day, btn.dataset.shift, btn.dataset.name);
       });
+    });
 
-      // Başlangıç (Init) işlemleri
-      const loaded = loadLocal();
-      if (!loaded) {
-        // İlk yüklemede varsayılan hafta başlangıcı (bugünün haftası)
-        const now = new Date();
-        const monday = startOfWeekMonday(now);
-        state.weekStartISO = toISODate(monday);
-        state.employees = [...demoEmployees];
-        state.assignments = {};
-        state.cellNotes = {};
-        state.notes = "";
+    els.tbody.querySelectorAll("[data-note='1']").forEach(t => {
+      t.addEventListener("input", () => {
+        const dayKey = t.dataset.day;
+        const shiftKey = t.dataset.shift;
+        state.cellNotes[noteKey(dayKey, shiftKey)] = t.value.trim();
+        saveLocalSoft();
+      });
+    });
+  }
+
+  function removePerson(dayKey, shiftKey, name){
+    ensureAssignments();
+    const arr = state.assignments[dayKey][shiftKey] || [];
+    state.assignments[dayKey][shiftKey] = arr.filter(n => n !== name);
+    saveLocalSoft();
+    renderTable();
+    computeStats();
+  }
+
+  function parseEmployees(input){
+    return input
+      .split(",")
+      .map(s => s.trim())
+      .filter(Boolean)
+      .filter((v,i,a)=>a.indexOf(v)===i);
+  }
+
+  function applyEmployees(){
+    const list = parseEmployees(els.employeesInput.value);
+    if(list.length === 0){
+      alert("Lütfen en az 1 personel adı girin.");
+      return;
+    }
+    state.employees = list;
+    ensureAssignments();
+    saveLocalSoft();
+    renderTable();
+    computeStats();
+  }
+
+  function refreshModalOptions(){
+    els.mDay.innerHTML = DAYS.map(d => `<option value="${d.key}">${d.tr}</option>`).join("");
+  }
+
+  function openAssign(dayKey, shiftKey){
+    refreshModalOptions();
+    els.mDay.value = dayKey || "Mon";
+    els.mShift.value = shiftKey || "G";
+    renderPeopleChecklist();
+    updateModalPreview();
+    if(typeof els.dialog.showModal === "function") els.dialog.showModal();
+  }
+
+  function closeAssign(){ els.dialog.close(); }
+
+  function renderPeopleChecklist(){
+    ensureAssignments();
+    const dayKey = els.mDay.value;
+    const shiftKey = els.mShift.value;
+    const selected = new Set(state.assignments[dayKey][shiftKey] || []);
+
+    els.mPeople.innerHTML = state.employees.map((name, idx) => {
+      const id = `p_${idx}_${dayKey}_${shiftKey}`.replaceAll("|","_");
+      const checked = selected.has(name) ? "checked" : "";
+      return `
+        <label class="check" for="${id}">
+          <input id="${id}" type="checkbox" value="${escapeHtml(name)}" ${checked} />
+          <span title="${escapeHtml(name)}">${escapeHtml(name)}</span>
+        </label>
+      `;
+    }).join("");
+
+    els.mPeople.querySelectorAll("input[type='checkbox']").forEach(cb => {
+      cb.addEventListener("change", updateModalPreview);
+    });
+  }
+
+  function getModalSelection(){
+    return [...els.mPeople.querySelectorAll("input[type='checkbox']:checked")].map(i => {
+      return i.closest(".check")?.querySelector("span")?.textContent?.trim() || "";
+    }).filter(Boolean);
+  }
+
+  function updateModalPreview(){
+    const dayKey = els.mDay.value;
+    const shiftKey = els.mShift.value;
+    const dayTR = DAYS.find(d => d.key === dayKey)?.tr || dayKey;
+    const shift = SHIFTS.find(s => s.key === shiftKey);
+    const names = getModalSelection();
+
+    const conflicts = [];
+    const picked = new Set(names);
+    for(const n of picked){
+      let count = 0;
+      for(const s of SHIFTS){
+        const base = new Set(state.assignments[dayKey][s.key] || []);
+        if(s.key === shiftKey){
+          if(picked.has(n)) count++;
+        }else{
+          if(base.has(n)) count++;
+        }
       }
+      if(count > 1) conflicts.push(n);
+    }
 
-      // Form alanlarını mevcut state ile doldur
-      els.teamName.value = state.teamName;
-      els.employeesInput.value = state.employees.join(", ");
-      els.notes.value = state.notes;
+    els.mPreview.innerHTML = `
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <div style="min-width: 260px;">
+          <strong>${escapeHtml(dayTR)}</strong> •
+          <span style="color: rgba(20,20,20,.72);">${escapeHtml(shift.label)}</span>
+          <div style="margin-top:8px; color: rgba(20,20,20,.72); font-size: 13px; line-height:1.5;">
+            Seçili kişi sayısı: <strong>${names.length}</strong>
+            ${conflicts.length ? `<br><span style="color: var(--warn);"><strong>Uyarı:</strong> Aynı gün birden fazla vardiyada seçili: ${conflicts.map(escapeHtml).join(", ")}</span>` : ""}
+          </div>
+        </div>
+        <div class="shiftBadge" data-shift="${shiftKey}">
+          <span class="dot" aria-hidden="true"></span>
+          <span>${shiftKey}</span>
+        </div>
+      </div>
+    `;
+  }
 
-      // State'i hazırla ve ilk render'ı yap
-      ensureAssignments();
-      ensureCellNotes();
-      setupWeekSelect();
+  function applyAssign(){
+    ensureAssignments();
+    const dayKey = els.mDay.value;
+    const shiftKey = els.mShift.value;
+    const names = getModalSelection();
+
+    state.assignments[dayKey][shiftKey] = names.sort((a,b)=>a.localeCompare(b, "tr"));
+
+    saveLocalSoft();
+    renderTable();
+    computeStats();
+    closeAssign();
+  }
+
+  function clearWeek(){
+    if(!confirm("Bu haftadaki tüm atamaları temizlemek istiyor musun?")) return;
+    state.assignments = {};
+    ensureAssignments();
+    saveLocalSoft();
+    renderTable();
+    computeStats();
+  }
+
+  function computeStats(){
+    ensureAssignments();
+
+    const perPerson = {};
+    for(const n of state.employees){
+      perPerson[n] = {G:0, "08":0, A:0, N:0, "İZİN":0};
+    }
+
+    let conflictDays = 0;
+
+    for(const day of DAYS){
+      const dailySeen = new Map();
+      for(const s of SHIFTS){
+        for(const n of (state.assignments[day.key][s.key] || [])){
+          if(perPerson[n]) perPerson[n][s.key] = (perPerson[n][s.key] || 0) + 1;
+          dailySeen.set(n, (dailySeen.get(n) || 0) + 1);
+        }
+      }
+      for(const [,c] of dailySeen){
+        if(c > 1){ conflictDays++; break; }
+      }
+    }
+
+    const totals = {G:0, "08":0, A:0, N:0, "İZİN":0};
+    for(const n of state.employees){
+      for(const k of Object.keys(totals)){
+        totals[k] += perPerson[n][k] || 0;
+      }
+    }
+
+    const nights = state.employees.map(n => perPerson[n].N || 0);
+    const maxN = Math.max(...nights, 0);
+    const minN = Math.min(...nights, 0);
+
+    const warnings = [];
+    if(conflictDays) warnings.push(`Çakışma var (gün sayısı: ${conflictDays}).`);
+    if((maxN - minN) >= 2) warnings.push("Gece vardiyası dağılımı dengesiz görünüyor.");
+
+    els.stats.innerHTML = `
+      <strong>Özet:</strong>
+      Kişi: <strong>${state.employees.length}</strong> •
+      07:00–15:00: <strong>${totals.G}</strong> •
+      08:00–16:00: <strong>${totals["08"]}</strong> •
+      15:00–23:00: <strong>${totals.A}</strong> •
+      23:00–07:00: <strong>${totals.N}</strong> •
+      İzin: <strong>${totals["İZİN"]}</strong>
+      ${warnings.length ? `<br><span style="color: var(--warn);"><strong>Uyarı:</strong> ${warnings.join(" ")}</span>` : ""}
+    `;
+  }
+
+  function saveLocalSoft(){
+    state.teamName = els.teamName.value.trim() || "Hafta Planı";
+    state.notes = els.notes.value;
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+
+  function saveExplicit(){
+    saveLocalSoft();
+    alert("Kaydedildi. (Bu cihazda)");
+  }
+
+  function exportJSON(){
+    saveLocalSoft();
+    const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `vardiya-plan_${state.weekStartISO || "hafta"}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function loadLocal(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return false;
+      const data = JSON.parse(raw);
+      if(!data || typeof data !== "object") return false;
+      state = {
+        teamName: data.teamName || "Hafta Planı",
+        weekStartISO: data.weekStartISO || "",
+        employees: Array.isArray(data.employees) && data.employees.length ? data.employees : [...demoEmployees],
+        assignments: data.assignments || {},
+        cellNotes: data.cellNotes || {},
+        notes: data.notes || ""
+      };
+      return true;
+    }catch(e){ return false; }
+  }
+
+  function resetDemo(){
+    if(!confirm("Demo personel listesine dönmek istiyor musun?")) return;
+    state.employees = [...demoEmployees];
+    ensureAssignments();
+    saveLocalSoft();
+    els.employeesInput.value = state.employees.join(", ");
+    renderTable();
+    computeStats();
+  }
+
+  function setupWeekSelect(){
+    const now = new Date();
+    const monday = startOfWeekMonday(now);
+    if(!state.weekStartISO) state.weekStartISO = toISODate(monday);
+
+    els.weekStart.addEventListener("change", () => {
+      const v = els.weekStart.value;
+      const base = startOfWeekMonday(new Date());
+      if(v === "auto") state.weekStartISO = toISODate(base);
+      else if(v === "next") state.weekStartISO = toISODate(addDays(base, 7));
+      else if(v === "custom"){
+        const current = parseISODate(state.weekStartISO);
+        const picked = prompt("Hafta başlangıcı (Pazartesi) tarihi: YYYY-AA-GG", toISODate(current));
+        if(!picked) { els.weekStart.value = "auto"; return; }
+        if(!/^\d{4}-\d{2}-\d{2}$/.test(picked)){ alert("Format hatalı. Örn: 2025-02-03"); els.weekStart.value="auto"; return; }
+        state.weekStartISO = toISODate(startOfWeekMonday(parseISODate(picked)));
+      }
+      saveLocalSoft();
       renderWeekHeader();
       renderTable();
       computeStats();
-      setupScrollReveal();
+    });
+  }
 
-      // Tarayıcı kapatılırken/kaynak değişmeden önce kaydet
-      window.addEventListener("beforeunload", saveLocalSoft);
-
-      // Opsiyonel: Sayfa yüklendiğinde odaklanmak için
-      window.addEventListener("load", () => {
-        console.log("VardiyaPlan yüklendi ✓");
+  function setupScrollReveal(){
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          en.target.classList.add("inview");
+          obs.unobserve(en.target);
+        }
       });
-    })();
-  </script>
+    }, {threshold: 0.12});
+    document.querySelectorAll(".fadeUp").forEach(el => obs.observe(el));
+  }
 
+  // Event listeners
+  els.btnApplyEmployees.addEventListener("click", applyEmployees);
+  els.btnResetDemo.addEventListener("click", resetDemo);
+  els.btnSave.addEventListener("click", saveExplicit);
+  els.btnSave2.addEventListener("click", saveExplicit);
+  els.btnExport.addEventListener("click", exportJSON);
+  els.btnPrint.addEventListener("click", () => window.print());
+  els.btnClearWeek.addEventListener("click", clearWeek);
+  els.btnOpenAssign.addEventListener("click", () => openAssign("Mon","G"));
 
+  els.teamName.addEventListener("input", () => { saveLocalSoft(); renderWeekHeader(); });
+  els.notes.addEventListener("input", saveLocalSoft);
 
+  els.btnCloseAssign.addEventListener("click", closeAssign);
+  els.btnCancelAssign.addEventListener("click", closeAssign);
+  els.btnApplyAssign.addEventListener("click", applyAssign);
 
+  els.mDay.addEventListener("change", () => { renderPeopleChecklist(); updateModalPreview(); });
+  els.mShift.addEventListener("change", () => { renderPeopleChecklist(); updateModalPreview(); });
 
+  // Init
+  const loaded = loadLocal();
+  if(!loaded){
+    state.weekStartISO = toISODate(startOfWeekMonday(new Date()));
+    state.employees = [...demoEmployees];
+    state.assignments = {};
+    state.cellNotes = {};
+    state.notes = "";
+  }
+
+  els.teamName.value = state.teamName;
+  els.employeesInput.value = state.employees.join(", ");
+  els.notes.value = state.notes;
+
+  ensureAssignments();
+  ensureCellNotes();
+  setupWeekSelect();
+  renderWeekHeader();
+  renderTable();
+  computeStats();
+  setupScrollReveal();
+
+  window.addEventListener("beforeunload", saveLocalSoft);
+})();
+</script>
+</body>
+</html>
