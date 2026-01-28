@@ -30,7 +30,7 @@
       --shadow2: 0 10px 30px rgba(20,20,20,.08);
 
       --container: min(1140px, calc(100vw - 40px));
-      --day-column-width: 140px;   /* ← Gün sütunu genişliği buradan kontrol ediliyor */
+      --day-column-width: 140px;
     }
 
     * { box-sizing: border-box; }
@@ -417,7 +417,6 @@
       white-space: nowrap;
     }
 
-    /* Gün sütunu küçültme */
     thead th:first-child,
     tbody th {
       width: var(--day-column-width);
@@ -468,6 +467,12 @@
       flex-direction: column;
       gap: 10px;
     }
+    .cell[data-conflict="true"] {
+      outline: 2px solid var(--warn);
+      outline-offset: -2px;
+      background: rgba(138,31,42,0.08) !important;
+    }
+
     .cellTop {
       display: flex;
       align-items: flex-start;
@@ -691,6 +696,13 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      flex: 1;
+    }
+    .check input:focus + span {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
     }
 
     .reveal {
@@ -900,7 +912,7 @@
                   <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z" stroke="currentColor" stroke-width="2"/>
                   <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <input id="timezone" type="text" value="TR (24 saat)" aria-label="Saat düzeni" />
+                <input id="timezone" type="text" value="TR (24 saat)" aria-label="Saat düzeni" readonly />
               </div>
             </div>
           </div>
@@ -1060,32 +1072,33 @@
 </dialog>
 
 <script>
-// Aynı JavaScript kodu (değişiklik yok, sadece stil değişti)
 (function(){
+  "use strict";
+
   const DAYS = [
-    {key:"Mon", tr:"Pzt"},
-    {key:"Tue", tr:"Sal"},
-    {key:"Wed", tr:"Çar"},
-    {key:"Thu", tr:"Per"},
-    {key:"Fri", tr:"Cum"},
-    {key:"Sat", tr:"Cmt"},
-    {key:"Sun", tr:"Paz"}
+    {key: "Mon", tr: "Pzt"},
+    {key: "Tue", tr: "Sal"},
+    {key: "Wed", tr: "Çar"},
+    {key: "Thu", tr: "Per"},
+    {key: "Fri", tr: "Cum"},
+    {key: "Sat", tr: "Cmt"},
+    {key: "Sun", tr: "Paz"}
   ];
 
   const SHIFTS = [
-    {key:"G",   label:"07:00–15:00"},
-    {key:"08",  label:"08:00–16:00"},
-    {key:"A",   label:"15:00–23:00"},
-    {key:"N",   label:"23:00–07:00"},
-    {key:"İZİN",label:"İzin"}
+    {key: "G",   label: "07:00–15:00"},
+    {key: "08",  label: "08:00–16:00"},
+    {key: "A",   label: "15:00–23:00"},
+    {key: "N",   label: "23:00–07:00"},
+    {key: "İZİN",label: "İzin"}
   ];
 
   const SHIFT_UI = {
-    "G":   {chipDot:"var(--brand)"},
-    "08":  {chipDot:"var(--brand08)"},
-    "A":   {chipDot:"var(--accent)"},
-    "N":   {chipDot:"var(--warn)"},
-    "İZİN":{chipDot:"var(--brand2)"}
+    "G":   {chipDot: "var(--brand)"},
+    "08":  {chipDot: "var(--brand08)"},
+    "A":   {chipDot: "var(--accent)"},
+    "N":   {chipDot: "var(--warn)"},
+    "İZİN":{chipDot: "var(--brand2)"}
   };
 
   const els = {
@@ -1119,23 +1132,27 @@
     mPreview: document.getElementById('mPreview')
   };
 
-  const STORAGE_KEY = "vardiyaPlan.dayBased.v4.notes";
+  const STORAGE_KEY = "vardiyaPlan:dayBased:v5";
   const demoEmployees = ["Ayşe Y.", "Mehmet K.", "Elif A.", "Can D.", "Zeynep S."];
 
   let state = {
     teamName: "Hafta Planı",
     weekStartISO: "",
     employees: [...demoEmployees],
-    assignments: {},  // day->shift->names[]
-    cellNotes: {},    // "day|shift" -> note
+    assignments: {},      // day -> shift -> [names]
+    cellNotes: {},        // "Mon|G" -> note
     notes: ""
   };
 
-  function pad(n){ return String(n).padStart(2,'0'); }
-  function toISODate(d){ return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
-  function parseISODate(s){ const [y,m,dd] = s.split('-').map(Number); return new Date(y, m-1, dd); }
+  // Yardımcı fonksiyonlar
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function toISODate(d) { return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+  function parseISODate(s) {
+    const [y, m, dd] = s.split('-').map(Number);
+    return new Date(y, m-1, dd);
+  }
 
-  function startOfWeekMonday(date){
+  function startOfWeekMonday(date) {
     const d = new Date(date);
     const day = d.getDay();
     const diff = (day === 0 ? -6 : 1 - day);
@@ -1143,33 +1160,49 @@
     d.setHours(0,0,0,0);
     return d;
   }
-  function addDays(date, n){ const d = new Date(date); d.setDate(d.getDate()+n); return d; }
 
-  function fmtTRDate(d){
+  function addDays(date, n) {
+    const d = new Date(date);
+    d.setDate(d.getDate() + n);
+    return d;
+  }
+
+  function fmtTRDate(d) {
     const months = ["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"];
     return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
   }
 
-  function ensureAssignments(){
-    for(const day of DAYS){
-      if(!state.assignments[day.key]) state.assignments[day.key] = {};
-      for(const s of SHIFTS){
-        if(!Array.isArray(state.assignments[day.key][s.key])) state.assignments[day.key][s.key] = [];
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function ensureAssignments() {
+    for (const day of DAYS) {
+      if (!state.assignments[day.key]) state.assignments[day.key] = {};
+      for (const s of SHIFTS) {
+        if (!Array.isArray(state.assignments[day.key][s.key])) {
+          state.assignments[day.key][s.key] = [];
+        }
       }
     }
-    const set = new Set(state.employees);
-    for(const day of DAYS){
-      for(const s of SHIFTS){
-        state.assignments[day.key][s.key] = (state.assignments[day.key][s.key] || []).filter(n => set.has(n));
+    const employeeSet = new Set(state.employees);
+    for (const day of DAYS) {
+      for (const s of SHIFTS) {
+        state.assignments[day.key][s.key] = state.assignments[day.key][s.key].filter(n => employeeSet.has(n));
       }
     }
   }
 
-  function ensureCellNotes(){
-    if(!state.cellNotes || typeof state.cellNotes !== "object") state.cellNotes = {};
+  function ensureCellNotes() {
+    if (!state.cellNotes || typeof state.cellNotes !== "object") state.cellNotes = {};
   }
 
-  function renderWeekHeader(){
+  function renderWeekHeader() {
     const monday = parseISODate(state.weekStartISO);
     const sunday = addDays(monday, 6);
     const team = (state.teamName || "Hafta Planı").trim();
@@ -1177,22 +1210,14 @@
     els.weekSubtitle.textContent = `${fmtTRDate(monday)} — ${fmtTRDate(sunday)}`;
   }
 
-  function escapeHtml(str){
-    return String(str)
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
-
-  function chipHTML(name, shiftKey, dayKey){
+  function chipHTML(name, shiftKey, dayKey) {
     const dot = SHIFT_UI[shiftKey]?.chipDot || "var(--ink)";
     const safe = escapeHtml(name);
     return `
       <span class="chip" style="border-left: 4px solid ${dot};">
-        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width: 220px;">${safe}</span>
-        <button class="remove" type="button" aria-label="${safe} kaldır" title="Kaldır" data-remove="1" data-day="${dayKey}" data-shift="${shiftKey}" data-name="${escapeHtml(name)}">
+        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:220px;">${safe}</span>
+        <button class="remove" type="button" aria-label="${safe} kaldır" title="Kaldır"
+          data-remove data-day="${dayKey}" data-shift="${shiftKey}" data-name="${escapeHtml(name)}">
           <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:14px;height:14px;">
             <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
@@ -1201,19 +1226,18 @@
     `;
   }
 
-  function noteKey(dayKey, shiftKey){ return `${dayKey}|${shiftKey}`; }
+  function noteKey(dayKey, shiftKey) { return `${dayKey}|${shiftKey}`; }
 
-  function renderTable(){
+  function renderTable() {
     ensureAssignments();
     ensureCellNotes();
     els.tbody.innerHTML = "";
 
     const monday = parseISODate(state.weekStartISO);
 
-    for(let di=0; di<DAYS.length; di++){
+    for (let di = 0; di < DAYS.length; di++) {
       const day = DAYS[di];
       const date = addDays(monday, di);
-
       const tr = document.createElement("tr");
 
       const th = document.createElement("th");
@@ -1226,11 +1250,11 @@
       `;
       tr.appendChild(th);
 
-      for(const s of SHIFTS){
+      for (const s of SHIFTS) {
         const td = document.createElement("td");
         const list = state.assignments[day.key][s.key] || [];
         const nk = noteKey(day.key, s.key);
-        const nval = state.cellNotes[nk] || "";
+        const noteVal = state.cellNotes[nk] || "";
 
         td.innerHTML = `
           <div class="cell">
@@ -1239,7 +1263,8 @@
                 <span class="dot" aria-hidden="true"></span>
                 <span>${escapeHtml(s.label)}</span>
               </span>
-              <button type="button" class="editBtn" aria-label="${day.tr} ${s.label} düzenle" title="Düzenle" data-edit="1" data-day="${day.key}" data-shift="${s.key}">
+              <button type="button" class="editBtn" aria-label="${day.tr} ${s.label} düzenle" title="Düzenle"
+                data-edit data-day="${day.key}" data-shift="${s.key}">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0 0-3L16.5 4.5a2.1 2.1 0 0 0-3 0L3 15v5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
                   <path d="M13.5 5.5l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1248,67 +1273,63 @@
             </div>
 
             <div class="names">
-              ${list.length ? list.map(n => chipHTML(n, s.key, day.key)).join("") : `<div class="empty">Henüz personel atanmadı.</div>`}
+              ${list.length
+                ? list.map(n => chipHTML(n, s.key, day.key)).join("")
+                : `<div class="empty">Henüz personel atanmadı.</div>`}
             </div>
 
-            <textarea
-              class="cellNote"
-              rows="2"
-              data-note="1"
-              data-day="${day.key}"
-              data-shift="${s.key}"
-              placeholder="Not..."
-            >${escapeHtml(nval)}</textarea>
+            <textarea class="cellNote" rows="2" data-note
+              data-day="${day.key}" data-shift="${s.key}"
+              placeholder="Not...">${escapeHtml(noteVal)}</textarea>
           </div>
         `;
         tr.appendChild(td);
       }
-
       els.tbody.appendChild(tr);
     }
 
-    els.tbody.querySelectorAll("[data-edit='1']").forEach(btn => {
-      btn.addEventListener("click", () => openAssign(btn.dataset.day, btn.dataset.shift));
-    });
+    // Event delegasyonu
+    els.tbody.addEventListener("click", e => {
+      const t = e.target.closest("button");
+      if (!t) return;
 
-    els.tbody.querySelectorAll("[data-remove='1']").forEach(btn => {
-      btn.addEventListener("click", (e) => {
+      if (t.hasAttribute("data-edit")) {
+        openAssign(t.dataset.day, t.dataset.shift);
+      }
+      else if (t.hasAttribute("data-remove")) {
         e.stopPropagation();
-        removePerson(btn.dataset.day, btn.dataset.shift, btn.dataset.name);
-      });
+        removePerson(t.dataset.day, t.dataset.shift, t.dataset.name);
+      }
     });
 
-    els.tbody.querySelectorAll("[data-note='1']").forEach(t => {
-      t.addEventListener("input", () => {
-        const dayKey = t.dataset.day;
-        const shiftKey = t.dataset.shift;
-        state.cellNotes[noteKey(dayKey, shiftKey)] = t.value.trim();
+    els.tbody.querySelectorAll(".cellNote").forEach(ta => {
+      ta.addEventListener("input", () => {
+        const k = noteKey(ta.dataset.day, ta.dataset.shift);
+        state.cellNotes[k] = ta.value.trim();
         saveLocalSoft();
       });
     });
   }
 
-  function removePerson(dayKey, shiftKey, name){
-    ensureAssignments();
-    const arr = state.assignments[dayKey][shiftKey] || [];
+  function removePerson(dayKey, shiftKey, name) {
+    const arr = state.assignments[dayKey]?.[shiftKey] || [];
     state.assignments[dayKey][shiftKey] = arr.filter(n => n !== name);
     saveLocalSoft();
     renderTable();
     computeStats();
   }
 
-  function parseEmployees(input){
-    return input
-      .split(",")
+  function parseEmployees(input) {
+    return input.split(",")
       .map(s => s.trim())
       .filter(Boolean)
-      .filter((v,i,a)=>a.indexOf(v)===i);
+      .filter((v, i, a) => a.indexOf(v) === i);
   }
 
-  function applyEmployees(){
+  function applyEmployees() {
     const list = parseEmployees(els.employeesInput.value);
-    if(list.length === 0){
-      alert("Lütfen en az 1 personel adı girin.");
+    if (list.length === 0) {
+      alert("En az bir personel adı girin.");
       return;
     }
     state.employees = list;
@@ -1318,105 +1339,100 @@
     computeStats();
   }
 
-  function refreshModalOptions(){
+  function refreshModalOptions() {
     els.mDay.innerHTML = DAYS.map(d => `<option value="${d.key}">${d.tr}</option>`).join("");
   }
 
-  function openAssign(dayKey, shiftKey){
+  function openAssign(dayKey = "Mon", shiftKey = "G") {
     refreshModalOptions();
-    els.mDay.value = dayKey || "Mon";
-    els.mShift.value = shiftKey || "G";
+    els.mDay.value = dayKey;
+    els.mShift.value = shiftKey;
     renderPeopleChecklist();
     updateModalPreview();
-    if(typeof els.dialog.showModal === "function") els.dialog.showModal();
+
+    if (typeof els.dialog.showModal === "function") {
+      els.dialog.showModal();
+      els.mDay.focus();
+    }
   }
 
-  function closeAssign(){ els.dialog.close(); }
+  function closeAssign() {
+    els.dialog.close();
+  }
 
-  function renderPeopleChecklist(){
-    ensureAssignments();
+  function renderPeopleChecklist() {
     const dayKey = els.mDay.value;
     const shiftKey = els.mShift.value;
-    const selected = new Set(state.assignments[dayKey][shiftKey] || []);
+    const selected = new Set(state.assignments[dayKey]?.[shiftKey] || []);
 
-    els.mPeople.innerHTML = state.employees.map((name, idx) => {
-      const id = `p_${idx}_${dayKey}_${shiftKey}`.replaceAll("|","_");
-      const checked = selected.has(name) ? "checked" : "";
+    els.mPeople.innerHTML = state.employees.map((name, i) => {
+      const id = `p_${i}_${dayKey}_${shiftKey}`.replace(/[^a-zA-Z0-9_-]/g, "_");
+      const checked = selected.has(name) ? " checked" : "";
       return `
         <label class="check" for="${id}">
-          <input id="${id}" type="checkbox" value="${escapeHtml(name)}" ${checked} />
+          <input id="${id}" type="checkbox" value="${escapeHtml(name)}"${checked}>
           <span title="${escapeHtml(name)}">${escapeHtml(name)}</span>
         </label>
       `;
     }).join("");
 
-    els.mPeople.querySelectorAll("input[type='checkbox']").forEach(cb => {
+    els.mPeople.querySelectorAll("input[type=checkbox]").forEach(cb => {
       cb.addEventListener("change", updateModalPreview);
     });
   }
 
-  function getModalSelection(){
-    return [...els.mPeople.querySelectorAll("input[type='checkbox']:checked")].map(i => {
-      return i.closest(".check")?.querySelector("span")?.textContent?.trim() || "";
-    }).filter(Boolean);
+  function getModalSelection() {
+    return Array.from(els.mPeople.querySelectorAll("input:checked"))
+      .map(cb => cb.value.trim())
+      .filter(Boolean);
   }
 
-  function updateModalPreview(){
+  function updateModalPreview() {
     const dayKey = els.mDay.value;
     const shiftKey = els.mShift.value;
     const dayTR = DAYS.find(d => d.key === dayKey)?.tr || dayKey;
-    const shift = SHIFTS.find(s => s.key === shiftKey);
+    const shift = SHIFTS.find(s => s.key === shiftKey) || SHIFTS[0];
+
     const names = getModalSelection();
 
     const conflicts = [];
     const picked = new Set(names);
-    for(const n of picked){
+
+    for (const n of picked) {
       let count = 0;
-      for(const s of SHIFTS){
-        const base = new Set(state.assignments[dayKey][s.key] || []);
-        if(s.key === shiftKey){
-          if(picked.has(n)) count++;
-        }else{
-          if(base.has(n)) count++;
-        }
+      for (const s of SHIFTS) {
+        if (state.assignments[dayKey]?.[s.key]?.includes(n)) count++;
       }
-      if(count > 1) conflicts.push(n);
+      if (count > 1) conflicts.push(n);
     }
 
-    els.mPreview.innerHTML = `
-      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-        <div style="min-width: 260px;">
-          <strong>${escapeHtml(dayTR)}</strong> •
-          <span style="color: rgba(20,20,20,.72);">${escapeHtml(shift.label)}</span>
-          <div style="margin-top:8px; color: rgba(20,20,20,.72); font-size: 13px; line-height:1.5;">
-            Seçili kişi sayısı: <strong>${names.length}</strong>
-            ${conflicts.length ? `<br><span style="color: var(--warn);"><strong>Uyarı:</strong> Aynı gün birden fazla vardiyada seçili: ${conflicts.map(escapeHtml).join(", ")}</span>` : ""}
-          </div>
-        </div>
-        <div class="shiftBadge" data-shift="${shiftKey}">
-          <span class="dot" aria-hidden="true"></span>
-          <span>${shiftKey}</span>
-        </div>
-      </div>
+    let html = `
+      <strong>${escapeHtml(dayTR)}</strong> • ${escapeHtml(shift.label)}
+      <div style="margin-top:8px; color:var(--muted); font-size:13px;">
+        Seçili: <strong>${names.length}</strong> kişi
     `;
+    if (conflicts.length) {
+      html += `<br><span style="color:var(--warn);"><strong>Uyarı:</strong> Çakışma → ${conflicts.map(escapeHtml).join(", ")}</span>`;
+    }
+    html += `</div>`;
+
+    els.mPreview.innerHTML = html;
   }
 
-  function applyAssign(){
-    ensureAssignments();
+  function applyAssign() {
     const dayKey = els.mDay.value;
     const shiftKey = els.mShift.value;
-    const names = getModalSelection();
+    const names = getModalSelection().sort((a,b) => a.localeCompare(b, "tr"));
 
-    state.assignments[dayKey][shiftKey] = names.sort((a,b)=>a.localeCompare(b, "tr"));
-
+    state.assignments[dayKey][shiftKey] = names;
     saveLocalSoft();
     renderTable();
     computeStats();
     closeAssign();
   }
 
-  function clearWeek(){
-    if(!confirm("Bu haftadaki tüm atamaları temizlemek istiyor musun?")) return;
+  function clearWeek() {
+    if (!confirm("Tüm atamaları silmek istediğinize emin misiniz?")) return;
     state.assignments = {};
     ensureAssignments();
     saveLocalSoft();
@@ -1424,100 +1440,118 @@
     computeStats();
   }
 
-  function computeStats(){
+  function computeStats() {
     ensureAssignments();
 
-    const perPerson = {};
-    for(const n of state.employees){
-      perPerson[n] = {G:0, "08":0, A:0, N:0, "İZİN":0};
-    }
-
+    const perPerson = Object.fromEntries(state.employees.map(n => [n, {G:0,"08":0,A:0,N:0,"İZİN":0}]));
     let conflictDays = 0;
+    const conflictCells = new Set();
 
-    for(const day of DAYS){
+    for (const day of DAYS) {
       const dailySeen = new Map();
-      for(const s of SHIFTS){
-        for(const n of (state.assignments[day.key][s.key] || [])){
-          if(perPerson[n]) perPerson[n][s.key] = (perPerson[n][s.key] || 0) + 1;
+      for (const s of SHIFTS) {
+        for (const n of (state.assignments[day.key]?.[s.key] || [])) {
+          if (perPerson[n]) perPerson[n][s.key]++;
           dailySeen.set(n, (dailySeen.get(n) || 0) + 1);
         }
       }
-      for(const [,c] of dailySeen){
-        if(c > 1){ conflictDays++; break; }
+
+      let hasConflict = false;
+      for (const [name, cnt] of dailySeen) {
+        if (cnt > 1) {
+          hasConflict = true;
+          for (const s of SHIFTS) {
+            if (state.assignments[day.key]?.[s.key]?.includes(name)) {
+              conflictCells.add(noteKey(day.key, s.key));
+            }
+          }
+        }
+      }
+      if (hasConflict) conflictDays++;
+    }
+
+    const totals = {G:0,"08":0,A:0,N:0,"İZİN":0};
+    for (const n of state.employees) {
+      for (const k in totals) {
+        totals[k] += perPerson[n]?.[k] || 0;
       }
     }
 
-    const totals = {G:0, "08":0, A:0, N:0, "İZİN":0};
-    for(const n of state.employees){
-      for(const k of Object.keys(totals)){
-        totals[k] += perPerson[n][k] || 0;
-      }
-    }
-
-    const nights = state.employees.map(n => perPerson[n].N || 0);
+    const nights = state.employees.map(n => perPerson[n]?.N || 0);
     const maxN = Math.max(...nights, 0);
     const minN = Math.min(...nights, 0);
 
     const warnings = [];
-    if(conflictDays) warnings.push(`Çakışma var (gün sayısı: ${conflictDays}).`);
-    if((maxN - minN) >= 2) warnings.push("Gece vardiyası dağılımı dengesiz görünüyor.");
+    if (conflictDays) warnings.push(`Çakışma: ${conflictDays} gün`);
+    if (maxN - minN >= 2) warnings.push("Gece vardiyası dengesiz");
 
     els.stats.innerHTML = `
-      <strong>Özet:</strong>
-      Kişi: <strong>${state.employees.length}</strong> •
-      07:00–15:00: <strong>${totals.G}</strong> •
-      08:00–16:00: <strong>${totals["08"]}</strong> •
-      15:00–23:00: <strong>${totals.A}</strong> •
-      23:00–07:00: <strong>${totals.N}</strong> •
+      <strong>Özet:</strong> ${state.employees.length} kişi •
+      G: <strong>${totals.G}</strong> •
+      08: <strong>${totals["08"]}</strong> •
+      A: <strong>${totals.A}</strong> •
+      N: <strong>${totals.N}</strong> •
       İzin: <strong>${totals["İZİN"]}</strong>
-      ${warnings.length ? `<br><span style="color: var(--warn);"><strong>Uyarı:</strong> ${warnings.join(" ")}</span>` : ""}
+      ${warnings.length ? `<br><span style="color:var(--warn);"><strong>Uyarı:</strong> ${warnings.join(" • ")}</span>` : ""}
     `;
+
+    // Çakışmalı hücreleri vurgula
+    document.querySelectorAll(".cell").forEach(cell => {
+      const ta = cell.querySelector(".cellNote");
+      if (ta) {
+        const k = noteKey(ta.dataset.day, ta.dataset.shift);
+        cell.dataset.conflict = conflictCells.has(k) ? "true" : "false";
+      }
+    });
   }
 
-  function saveLocalSoft(){
+  function saveLocalSoft() {
     state.teamName = els.teamName.value.trim() || "Hafta Planı";
-    state.notes = els.notes.value;
-    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+    state.notes = els.notes.value.trim();
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch {}
   }
 
-  function saveExplicit(){
+  function saveExplicit() {
     saveLocalSoft();
-    alert("Kaydedildi. (Bu cihazda)");
+    alert("Yerel olarak kaydedildi.");
   }
 
-  function exportJSON(){
+  function exportJSON() {
     saveLocalSoft();
-    const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify(state, null, 2)], {type: "application/json"});
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = `vardiya-plan_${state.weekStartISO || "hafta"}.json`;
-    document.body.appendChild(a);
     a.click();
-    a.remove();
     URL.revokeObjectURL(url);
   }
 
-  function loadLocal(){
-    try{
+  function loadLocal() {
+    try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if(!raw) return false;
+      if (!raw) return false;
       const data = JSON.parse(raw);
-      if(!data || typeof data !== "object") return false;
+      if (!data || typeof data !== "object") return false;
+
       state = {
         teamName: data.teamName || "Hafta Planı",
         weekStartISO: data.weekStartISO || "",
-        employees: Array.isArray(data.employees) && data.employees.length ? data.employees : [...demoEmployees],
+        employees: Array.isArray(data.employees) ? data.employees : [...demoEmployees],
         assignments: data.assignments || {},
         cellNotes: data.cellNotes || {},
         notes: data.notes || ""
       };
       return true;
-    }catch(e){ return false; }
+    } catch {
+      return false;
+    }
   }
 
-  function resetDemo(){
-    if(!confirm("Demo personel listesine dönmek istiyor musun?")) return;
+  function resetDemo() {
+    if (!confirm("Demo verilere dönmek istiyor musunuz?")) return;
     state.employees = [...demoEmployees];
     ensureAssignments();
     saveLocalSoft();
@@ -1526,23 +1560,47 @@
     computeStats();
   }
 
-  function setupWeekSelect(){
+  function isValidISODate(str) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(str)) return false;
+    const d = new Date(str);
+    return d instanceof Date && !isNaN(d) && d.getFullYear() === Number(str.slice(0,4));
+  }
+
+  function setupWeekSelect() {
     const now = new Date();
     const monday = startOfWeekMonday(now);
-    if(!state.weekStartISO) state.weekStartISO = toISODate(monday);
+    if (!state.weekStartISO || !isValidISODate(state.weekStartISO)) {
+      state.weekStartISO = toISODate(monday);
+    }
 
     els.weekStart.addEventListener("change", () => {
       const v = els.weekStart.value;
       const base = startOfWeekMonday(new Date());
-      if(v === "auto") state.weekStartISO = toISODate(base);
-      else if(v === "next") state.weekStartISO = toISODate(addDays(base, 7));
-      else if(v === "custom"){
-        const current = parseISODate(state.weekStartISO);
-        const picked = prompt("Hafta başlangıcı (Pazartesi) tarihi: YYYY-AA-GG", toISODate(current));
-        if(!picked) { els.weekStart.value = "auto"; return; }
-        if(!/^\d{4}-\d{2}-\d{2}$/.test(picked)){ alert("Format hatalı. Örn: 2025-02-03"); els.weekStart.value="auto"; return; }
+
+      if (v === "auto") {
+        state.weekStartISO = toISODate(base);
+      } else if (v === "next") {
+        state.weekStartISO = toISODate(addDays(base, 7));
+      } else if (v === "custom") {
+        const picked = prompt(
+          "Haftanın başlangıç tarihi (Pazartesi):\nÖrnek: 2025-02-03",
+          state.weekStartISO
+        );
+
+        if (!picked) {
+          els.weekStart.value = "auto";
+          return;
+        }
+
+        if (!isValidISODate(picked)) {
+          alert("Geçersiz tarih formatı.\nDoğru format: YYYY-AA-GG");
+          els.weekStart.value = "auto";
+          return;
+        }
+
         state.weekStartISO = toISODate(startOfWeekMonday(parseISODate(picked)));
       }
+
       saveLocalSoft();
       renderWeekHeader();
       renderTable();
@@ -1550,15 +1608,16 @@
     });
   }
 
-  function setupScrollReveal(){
-    const obs = new IntersectionObserver((entries)=>{
-      entries.forEach(en=>{
-        if(en.isIntersecting){
+  function setupScrollReveal() {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
           en.target.classList.add("inview");
           obs.unobserve(en.target);
         }
       });
-    }, {threshold: 0.12});
+    }, { threshold: 0.12 });
+
     document.querySelectorAll(".fadeUp").forEach(el => obs.observe(el));
   }
 
@@ -1570,21 +1629,30 @@
   els.btnExport.addEventListener("click", exportJSON);
   els.btnPrint.addEventListener("click", () => window.print());
   els.btnClearWeek.addEventListener("click", clearWeek);
-  els.btnOpenAssign.addEventListener("click", () => openAssign("Mon","G"));
+  els.btnOpenAssign.addEventListener("click", () => openAssign());
 
-  els.teamName.addEventListener("input", () => { saveLocalSoft(); renderWeekHeader(); });
+  els.teamName.addEventListener("input", () => {
+    saveLocalSoft();
+    renderWeekHeader();
+  });
   els.notes.addEventListener("input", saveLocalSoft);
 
   els.btnCloseAssign.addEventListener("click", closeAssign);
   els.btnCancelAssign.addEventListener("click", closeAssign);
   els.btnApplyAssign.addEventListener("click", applyAssign);
 
-  els.mDay.addEventListener("change", () => { renderPeopleChecklist(); updateModalPreview(); });
-  els.mShift.addEventListener("change", () => { renderPeopleChecklist(); updateModalPreview(); });
+  els.mDay.addEventListener("change", () => {
+    renderPeopleChecklist();
+    updateModalPreview();
+  });
+  els.mShift.addEventListener("change", () => {
+    renderPeopleChecklist();
+    updateModalPreview();
+  });
 
-  // Init
+  // Başlangıç
   const loaded = loadLocal();
-  if(!loaded){
+  if (!loaded) {
     state.weekStartISO = toISODate(startOfWeekMonday(new Date()));
     state.employees = [...demoEmployees];
     state.assignments = {};
