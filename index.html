@@ -729,9 +729,6 @@
       :root { --day-column-width: 110px; }
     }
 
-/* Mevcut :root ve genel stiller aynı kalabilir */
-
-/* === MOBİL KART GÖRÜNÜMÜ - ANA DÜZELTME === */
 @media (max-width: 768px) {
   :root {
     --container: 100%;
@@ -743,9 +740,7 @@
     padding: 0 8px;
   }
 
-  .container {
-    padding: 0 8px;
-  }
+  .container { padding: 0 8px; }
 
   header .nav {
     flex-direction: column;
@@ -770,21 +765,23 @@
 
   .tableWrap {
     overflow-x: visible !important;
+    overflow-y: visible !important;     /* ← Ekstra: dikey taşmayı da aç */
     border: none;
     background: transparent;
     box-shadow: none;
+    padding: 0;
   }
 
-  table, thead, tbody, tr, th, td {
-    display: block;
+  table {
     width: 100% !important;
+    min-width: 0 !important;
+    border-collapse: separate !important;
+    border-spacing: 0 16px !important;   /* Kartlar arası boşluk */
   }
 
-  thead {
-    display: none !important;
-  }
+  thead { display: none !important; }
 
-  tr {
+  tbody tr {
     display: block;
     margin: 0 0 24px 0;
     padding: 0;
@@ -792,6 +789,8 @@
     border-radius: var(--radius);
     box-shadow: var(--shadow2);
     border: 1px solid rgba(20,20,20,.08);
+    overflow: visible !important;        /* ← Taşmayı engelleme */
+    min-height: auto;
   }
 
   tbody th {
@@ -803,6 +802,7 @@
     text-align: center;
     border: none;
     border-radius: var(--radius) var(--radius) 0 0;
+    margin: 0;
   }
 
   td {
@@ -811,54 +811,45 @@
     border: none;
     border-bottom: 1px dashed rgba(20,20,20,.15);
     background: rgba(255,255,255,.75);
+    margin: 0;
   }
 
-  td:last-child {
-    border-bottom: none;
+  td:last-of-type {
+    border-bottom: none !important;
     border-radius: 0 0 var(--radius) var(--radius);
+    padding-bottom: 16px;                 /* ← En altta ekstra boşluk */
   }
 
-  /* Hücre içi düzenlemeler */
+  /* Hücre içeriği için son temizlik */
   .cell {
-    min-height: auto;
+    min-height: auto !important;
     gap: 12px;
+    padding: 0;
   }
 
   .cellTop {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
-  }
-
-  .shiftBadge {
-    font-size: 13px;
-    padding: 8px 12px;
-  }
-
-  .editBtn {
-    padding: 8px;
-  }
-
-  .names {
-    display: flex;
     flex-wrap: wrap;
     gap: 8px;
   }
 
+  .names {
+    gap: 8px;
+  }
+
   .chip {
-    flex: 1 1 auto;
+    flex: 1 1 45%;
     min-width: 120px;
-    max-width: none;
     justify-content: space-between;
-    font-size: 13px;
-    padding: 8px 12px;
   }
 
   .cellNote {
+    width: 100%;
+    margin-top: 8px;
     font-size: 14px;
     min-height: 60px;
-    padding: 10px 12px;
   }
 
   .bottomBar {
@@ -866,6 +857,7 @@
     gap: 16px;
     text-align: center;
   }
+}
 
   .stats {
     text-align: center;
@@ -1833,4 +1825,5 @@
       });
     })();
   </script>
+
 
