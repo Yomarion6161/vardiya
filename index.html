@@ -730,6 +730,19 @@
     }
 
 @media (max-width: 768px) {
+  tbody tr {
+  overflow: visible !important;
+  min-height: auto !important;
+  height: auto !important;
+}
+
+td:last-of-type,
+tr:last-child td {
+  overflow: visible !important;
+  height: auto !important;
+  min-height: 100px;          /* son hücreye minimum yükseklik ver */
+  padding-bottom: 24px !important;  /* altta ekstra boşluk */
+}
   :root {
     --container: 100%;
     --day-column-width: 100%;
@@ -1825,5 +1838,6 @@
       });
     })();
   </script>
+
 
 
