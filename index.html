@@ -2,9 +2,10 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes" />
   <meta name="color-scheme" content="light" />
-  <title>VardiyaPlan — Gün Bazlı Vardiya Planı</title>
+  <title>VardiyaPlan — 2 Haftalık Vardiya Planı</title>
+  <!-- Version: 2026-01-29-02:48 -->
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -171,6 +172,7 @@
       white-space: nowrap;
       min-height: 44px;
       min-width: 44px;
+      touch-action: manipulation;
     }
     .btn:hover { transform: translateY(-1px); filter: brightness(1.04); box-shadow: 0 18px 40px rgba(20,20,20,.20); }
     .btn:active { transform: translateY(0) scale(.99); box-shadow: 0 12px 24px rgba(20,20,20,.16); }
@@ -395,6 +397,8 @@
       border: 1px solid rgba(20,20,20,.12);
       background: rgba(255,255,255,.55);
       box-shadow: 0 12px 28px rgba(20,20,20,.08);
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x pan-y;
     }
     table {
       width: 100%;
@@ -410,8 +414,8 @@
       background: linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.60));
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(20,20,20,.12);
-      padding: 12px 10px;
-      text-align: left;
+      padding: 10px 8px;
+      text-align: center;
       font-size: 12px;
       letter-spacing: .08em;
       text-transform: uppercase;
@@ -429,14 +433,14 @@
 
     tbody td, tbody th {
       border-bottom: 1px solid rgba(20,20,20,.08);
-      padding: 10px;
+      padding: 6px;
       vertical-align: top;
       background: rgba(251,248,242,.45);
     }
     tbody tr:hover td, tbody tr:hover th { background: rgba(255,255,255,.62); }
 
     tbody th {
-      text-align: left;
+      text-align: center;
       font-weight: 800;
       letter-spacing: .01em;
       position: sticky;
@@ -452,6 +456,7 @@
       flex-direction: column;
       gap: 4px;
       font-size: 0.95rem;
+      align-items: center;
     }
     .dayMeta div {
       font-weight: 700;
@@ -465,34 +470,49 @@
     }
 
     .cell {
-      min-height: 108px;
+      min-height: 50px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 4px;
+    }
+    
+    .cell.with-note {
+      flex-direction: row;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    
+    .cell-content {
+      flex: 2;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
     .cellTop {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      position: relative;
     }
     .shiftBadge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 10px;
-      border-radius: 999px;
+      gap: 6px;
+      padding: 2px 18px;
+      border-radius: 30px;
       border: 1px solid rgba(20,20,20,.12);
       background: rgba(255,255,255,.55);
       font-weight: 900;
-      letter-spacing: .04em;
-      font-size: 12px;
+      letter-spacing: .05em;
+      font-size: 11px;
       white-space: nowrap;
     }
     .shiftBadge .dot {
-      width: 10px; height: 10px; border-radius: 999px;
+      width: 8px; height: 8px; border-radius: 999px;
       background: var(--ink);
-      box-shadow: 0 10px 18px rgba(20,20,20,.12);
+      box-shadow: 0 8px 16px rgba(20,20,20,.12);
     }
     .shiftBadge[data-shift="G"] .dot { background: var(--brand); }
     .shiftBadge[data-shift="08"] .dot { background: var(--brand08); }
@@ -511,6 +531,10 @@
       flex: 0 0 auto;
       min-width: 44px;
       min-height: 44px;
+      touch-action: manipulation;
+      position: absolute;
+      top: 0;
+      right: 0;
     }
     .editBtn:hover {
       opacity: 1;
@@ -522,27 +546,28 @@
     .names {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      align-items: flex-start;
+      gap: 5px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
     }
     .chip {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 7px 10px;
+      gap: 6px;
+      padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(20,20,20,.12);
-      background: rgba(255,255,255,.60);
-      box-shadow: 0 10px 18px rgba(20,20,20,.06);
-      font-weight: 750;
-      font-size: 13px;
+      box-shadow: 0 6px 14px rgba(20,20,20,.06);
+      font-weight: 900;
+      font-size: 11.5px;
       max-width: 100%;
+      letter-spacing: 0.04em;
     }
     .chip .remove {
       border: none;
       background: rgba(20,20,20,.06);
       border: 1px solid rgba(20,20,20,.10);
-      width: 22px; height: 22px;
+      width: 18px; height: 18px;
       border-radius: 999px;
       cursor: pointer;
       transition: transform .12s ease, background .12s ease;
@@ -550,40 +575,37 @@
       align-items: center;
       justify-content: center;
       flex: 0 0 auto;
-      min-width: 44px;
-      min-height: 44px;
+      min-width: 18px;
+      min-height: 18px;
+      touch-action: manipulation;
+      padding: 2px;
     }
+    .chip .remove svg { width: 11px; height: 11px; }
     .chip .remove:hover { background: rgba(20,20,20,.08); transform: translateY(-1px); }
     .chip .remove:active { transform: translateY(0) scale(.98); }
 
-    .empty {
-      color: rgba(20,20,20,.55);
-      font-size: 13px;
-      line-height: 1.4;
-      padding: 2px 2px 0;
+    .leave-note {
+      width: 140px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1px dashed rgba(178,75,47,.25);
+      background: rgba(255,248,245,.70);
+      padding: 6px 8px;
+      font-size: 10.5px;
+      line-height: 1.3;
+      color: rgba(20,20,20,.75);
+      outline: none;
+      transition: border-color .15s ease, background .15s ease;
+      min-height: 55px;
+      resize: none;
+    }
+    .leave-note::placeholder { color: rgba(20,20,20,.40); font-size: 10px; }
+    .leave-note:focus {
+      border-color: rgba(178,75,47,.50);
+      background: rgba(255,248,245,.90);
     }
 
-    .cellNote {
-      margin-top: 6px;
-      width: 100%;
-      border-radius: 12px;
-      border: 1px dashed rgba(20,20,20,.18);
-      background: rgba(255,255,255,.52);
-      padding: 8px 10px;
-      font-size: 12.5px;
-      line-height: 1.35;
-      color: rgba(20,20,20,.78);
-      outline: none;
-      box-shadow: 0 10px 18px rgba(20,20,20,.06);
-      transition: border-color .15s ease, background .15s ease, transform .15s ease;
-      min-height: 44px;
-    }
-    .cellNote::placeholder { color: rgba(20,20,20,.45); }
-    .cellNote:focus {
-      border-color: rgba(13,107,91,.40);
-      background: rgba(255,255,255,.70);
-      transform: translateY(-1px);
-    }
+
 
     .bottomBar {
       display: flex;
@@ -645,6 +667,7 @@
       transition: transform .12s ease, background .12s ease;
       min-width: 44px;
       min-height: 44px;
+      touch-action: manipulation;
     }
     .xbtn:hover { transform: translateY(-1px); background: rgba(20,20,20,.08); }
     .xbtn:active { transform: translateY(0) scale(.98); }
@@ -694,8 +717,9 @@
       border: 1px solid rgba(20,20,20,.12);
       background: rgba(251,248,242,.65);
       min-height: 44px;
+      touch-action: manipulation;
     }
-    .check input { width: 18px; height: 18px; }
+    .check input { width: 18px; height: 18px; min-width: 24px; min-height: 24px; }
     .check span {
       font-weight: 700;
       overflow: hidden;
@@ -717,43 +741,24 @@
     }
     @keyframes rise { to { opacity: 1; transform: translateY(0); } }
 
-    /* Mobil İyileştirmeler */
-    .fab {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--brand);
-      color: var(--paper);
-      box-shadow: 0 8px 32px rgba(13,107,91,.4);
-      border: none;
-      font-size: 32px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      cursor: pointer;
-      transition: transform .2s;
-      min-width: 44px;
-      min-height: 44px;
-    }
-    .fab:hover { transform: scale(1.1); }
-    .fab:active { transform: scale(0.95); }
-
     @media (max-width: 980px) {
       .hero { grid-template-columns: 1fr; }
       table { min-width: 860px; }
-      .tableWrap { overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--brand) transparent; }
     }
 
     @media (max-width: 720px) {
       :root { --day-column-width: 120px; }
       .dayMeta div { font-size: 1rem; }
       .dayMeta small { font-size: 0.72rem; }
-      .fab { bottom: 16px; right: 16px; width: 60px; height: 60px; font-size: 28px; }
+      
+      .cell.with-note {
+        flex-direction: column;
+      }
+      
+      .leave-note {
+        width: 100%;
+        min-height: 50px;
+      }
     }
 
     @media (max-width: 520px) {
@@ -765,12 +770,6 @@
       table { min-width: 780px; }
       .checkGrid { grid-template-columns: 1fr; }
       :root { --day-column-width: 110px; }
-      .btn, .editBtn, .chip .remove, .xbtn { min-width: 44px; min-height: 44px; padding: 10px; }
-      .editBtn svg, .chip .remove svg { width: 20px; height: 20px; }
-      .smallActions { justify-content: center; gap: 16px; }
-      dialog { width: calc(100vw - 16px); max-height: 90vh; margin: 8px auto; }
-      .checkGrid { grid-template-columns: 1fr; max-height: 45vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-      .check { padding: 12px 16px; }
     }
 
     /* PRINT */
@@ -782,7 +781,7 @@
       body { background: white; }
       body::before { display: none; }
 
-      header, .panel, .hero, footer, .bottomBar, dialog, .fab { display: none !important; }
+      header, .panel, .hero, footer, .bottomBar, dialog { display: none !important; }
       .section { margin: 0; padding: 0; box-shadow: none; border: none; background: white; }
       .tableWrap { border: none; box-shadow: none; overflow: visible; background: transparent; }
 
@@ -817,12 +816,20 @@
       .chip .remove { display: none !important; }
 
       .cell { min-height: auto !important; gap: 4px !important; }
-      .cellNote {
-        font-size: 8.5px !important;
-        padding: 4px 6px !important;
+      
+      .cell.with-note {
+        flex-direction: row !important;
+        gap: 6px !important;
+      }
+      
+      .leave-note {
+        font-size: 7px !important;
+        padding: 3px 4px !important;
         border: 1px dotted #bbb !important;
         background: white !important;
-        box-shadow: none !important;
+        min-height: 40px !important;
+        line-height: 1.1 !important;
+        width: 80px !important;
       }
     }
   </style>
@@ -841,11 +848,11 @@
       </a>
 
       <div class="navActions">
-        <div class="pill" aria-label="Hafta seçimi">
-          <label for="weekStart">Hafta</label>
-          <select id="weekStart" aria-label="Hafta başlangıcı">
-            <option value="auto" selected>Bu hafta</option>
-            <option value="next">Gelecek hafta</option>
+        <div class="pill" aria-label="2 Hafta seçimi">
+          <label for="weekStart">2 Hafta</label>
+          <select id="weekStart" aria-label="2 Hafta başlangıcı">
+            <option value="auto" selected>Bu 2 hafta</option>
+            <option value="next">Sonraki 2 hafta</option>
             <option value="custom">Tarih seç…</option>
           </select>
         </div>
@@ -879,7 +886,7 @@
       <div>
         <div class="kicker">
           <span class="kdot" aria-hidden="true"></span>
-          <span>Gün bazlı tablo</span>
+          <span>2 haftalık tablo</span>
         </div>
 
         <h2>Vardiya planı.</h2>
@@ -892,14 +899,14 @@
             </svg>
             Personel Ata / Düzenle
           </button>
-          <button class="btn secondary" id="btnClearWeek" type="button" title="Bu haftayı temizle">
+          <button class="btn secondary" id="btnClearWeek" type="button" title="Bu 2 haftayı temizle">
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M3 6h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <path d="M7 6l1 16h8l1-16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
               <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            Haftayı Temizle
+            2 Haftayı Temizle
           </button>
           <button class="btn secondary" id="btnSave" type="button" title="Yerel kaydet">
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -944,7 +951,7 @@
                   <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z" stroke="currentColor" stroke-width="2"/>
                   <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <input id="timezone" type="text" value="TR (24 saat)" aria-label="Saat düzeni" readonly />
+                <input id="timezone" type="text" value="TR (24 saat)" aria-label="Saat düzeni" />
               </div>
             </div>
           </div>
@@ -990,10 +997,10 @@
       </aside>
     </section>
 
-    <section class="section fadeUp" aria-label="Gün bazlı vardiya planı">
+    <section class="section fadeUp" aria-label="2 haftalık vardiya planı">
       <div class="sectionHead">
         <div>
-          <h3 id="weekTitle">Hafta Planı</h3>
+          <h3 id="weekTitle">2 Haftalık Plan</h3>
           <p id="weekSubtitle">—</p>
         </div>
         <div class="legend" aria-label="Vardiya açıklamaları">
@@ -1036,14 +1043,6 @@
     </footer>
   </div>
 </main>
-
-<!-- Floating Action Button (mobil için eklenmiş) -->
-<button class="fab" id="btnOpenAssignMobile" aria-label="Personel Ata / Düzenle" title="Personel Ata / Düzenle">
-  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width: 28px; height: 28px;">
-    <path d="M12 5v14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-    <path d="M5 12h14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-  </svg>
-</button>
 
 <!-- Assign Modal -->
 <dialog id="assignDialog" aria-labelledby="assignTitle">
@@ -1115,13 +1114,22 @@
 // Aynı JavaScript kodu (değişiklik yok, sadece stil değişti)
 (function(){
   const DAYS = [
-    {key:"Mon", tr:"Pzt"},
-    {key:"Tue", tr:"Sal"},
-    {key:"Wed", tr:"Çar"},
-    {key:"Thu", tr:"Per"},
-    {key:"Fri", tr:"Cum"},
-    {key:"Sat", tr:"Cmt"},
-    {key:"Sun", tr:"Paz"}
+    // Hafta 1
+    {key:"Mon1", tr:"Pzt", week: 1},
+    {key:"Tue1", tr:"Sal", week: 1},
+    {key:"Wed1", tr:"Çar", week: 1},
+    {key:"Thu1", tr:"Per", week: 1},
+    {key:"Fri1", tr:"Cum", week: 1},
+    {key:"Sat1", tr:"Cmt", week: 1},
+    {key:"Sun1", tr:"Paz", week: 1},
+    // Hafta 2
+    {key:"Mon2", tr:"Pzt", week: 2},
+    {key:"Tue2", tr:"Sal", week: 2},
+    {key:"Wed2", tr:"Çar", week: 2},
+    {key:"Thu2", tr:"Per", week: 2},
+    {key:"Fri2", tr:"Cum", week: 2},
+    {key:"Sat2", tr:"Cmt", week: 2},
+    {key:"Sun2", tr:"Paz", week: 2}
   ];
 
   const SHIFTS = [
@@ -1158,7 +1166,6 @@
     btnPrint: document.getElementById('btnPrint'),
     btnClearWeek: document.getElementById('btnClearWeek'),
     btnOpenAssign: document.getElementById('btnOpenAssign'),
-    btnOpenAssignMobile: document.getElementById('btnOpenAssignMobile'),
 
     weekStart: document.getElementById('weekStart'),
 
@@ -1176,11 +1183,11 @@
   const demoEmployees = ["Ayşe Y.", "Mehmet K.", "Elif A.", "Can D.", "Zeynep S."];
 
   let state = {
-    teamName: "Hafta Planı",
+    teamName: "2 Haftalık Plan",
     weekStartISO: "",
     employees: [...demoEmployees],
     assignments: {},  // day->shift->names[]
-    cellNotes: {},    // "day|shift" -> note
+    leaveNotes: {},   // "day|shift|leave" -> note
     notes: ""
   };
 
@@ -1218,16 +1225,12 @@
     }
   }
 
-  function ensureCellNotes(){
-    if(!state.cellNotes || typeof state.cellNotes !== "object") state.cellNotes = {};
-  }
-
   function renderWeekHeader(){
     const monday = parseISODate(state.weekStartISO);
-    const sunday = addDays(monday, 6);
-    const team = (state.teamName || "Hafta Planı").trim();
+    const sunday2 = addDays(monday, 13); // 2 hafta = 14 gün
+    const team = (state.teamName || "2 Haftalık Plan").trim();
     els.weekTitle.textContent = team;
-    els.weekSubtitle.textContent = `${fmtTRDate(monday)} — ${fmtTRDate(sunday)}`;
+    els.weekSubtitle.textContent = `${fmtTRDate(monday)} — ${fmtTRDate(sunday2)}`;
   }
 
   function escapeHtml(str){
@@ -1243,22 +1246,19 @@
     const dot = SHIFT_UI[shiftKey]?.chipDot || "var(--ink)";
     const safe = escapeHtml(name);
     return `
-      <span class="chip" style="border-left: 4px solid ${dot};">
-        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width: 220px;">${safe}</span>
+      <span class="chip" style="border: 3px solid ${dot}; background: linear-gradient(90deg, ${dot}20 0%, rgba(255,255,255,.60) 35%);">
+        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${safe}</span>
         <button class="remove" type="button" aria-label="${safe} kaldır" title="Kaldır" data-remove="1" data-day="${dayKey}" data-shift="${shiftKey}" data-name="${escapeHtml(name)}">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:14px;height:14px;">
-            <path d="M6 6l12 12M18 6 L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:11px;height:11px;">
+            <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </button>
       </span>
     `;
   }
 
-  function noteKey(dayKey, shiftKey){ return `${dayKey}|${shiftKey}`; }
-
   function renderTable(){
     ensureAssignments();
-    ensureCellNotes();
     els.tbody.innerHTML = "";
 
     const monday = parseISODate(state.weekStartISO);
@@ -1282,36 +1282,41 @@
       for(const s of SHIFTS){
         const td = document.createElement("td");
         const list = state.assignments[day.key][s.key] || [];
-        const nk = noteKey(day.key, s.key);
-        const nval = state.cellNotes[nk] || "";
+        const leaveNoteKey = `${day.key}|${s.key}|leave`;
+        const leaveNote = state.leaveNotes?.[leaveNoteKey] || "";
+        const hasNote = s.key === "İZİN";
 
         td.innerHTML = `
-          <div class="cell">
-            <div class="cellTop">
-              <span class="shiftBadge" data-shift="${s.key}">
-                <span class="dot" aria-hidden="true"></span>
-                <span>${escapeHtml(s.label)}</span>
-              </span>
-              <button type="button" class="editBtn" aria-label="${day.tr} ${s.label} düzenle" title="Düzenle" data-edit="1" data-day="${day.key}" data-shift="${s.key}">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0 0-3L16.5 4.5a2.1 2.1 0 0 0-3 0L3 15v5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                  <path d="M13.5 5.5l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </button>
+          <div class="cell ${hasNote ? 'with-note' : ''}">
+            <div class="cell-content">
+              <div class="cellTop">
+                <span class="shiftBadge" data-shift="${s.key}">
+                  <span class="dot" aria-hidden="true"></span>
+                  <span>${escapeHtml(s.label)}</span>
+                </span>
+                <button type="button" class="editBtn" aria-label="${day.tr} ${s.label} düzenle" title="Düzenle" data-edit="1" data-day="${day.key}" data-shift="${s.key}">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0 0-3L16.5 4.5a2.1 2.1 0 0 0-3 0L3 15v5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M13.5 5.5l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="names">
+                ${list.length ? list.map(n => chipHTML(n, s.key, day.key)).join("") : ``}
+              </div>
             </div>
 
-            <div class="names">
-              ${list.length ? list.map(n => chipHTML(n, s.key, day.key)).join("") : `<div class="empty">Henüz personel atanmadı.</div>`}
-            </div>
-
+            ${hasNote ? `
             <textarea
-              class="cellNote"
-              rows="2"
-              data-note="1"
+              class="leave-note"
+              rows="3"
+              data-leave-note="1"
               data-day="${day.key}"
               data-shift="${s.key}"
-              placeholder="Not..."
-            >${escapeHtml(nval)}</textarea>
+              placeholder="İzin notu..."
+            >${escapeHtml(leaveNote)}</textarea>
+            ` : ''}
           </div>
         `;
         tr.appendChild(td);
@@ -1331,11 +1336,13 @@
       });
     });
 
-    els.tbody.querySelectorAll("[data-note='1']").forEach(t => {
-      t.addEventListener("input", () => {
-        const dayKey = t.dataset.day;
-        const shiftKey = t.dataset.shift;
-        state.cellNotes[noteKey(dayKey, shiftKey)] = t.value.trim();
+    els.tbody.querySelectorAll("[data-leave-note='1']").forEach(textarea => {
+      textarea.addEventListener("input", () => {
+        const dayKey = textarea.dataset.day;
+        const shiftKey = textarea.dataset.shift;
+        const noteKey = `${dayKey}|${shiftKey}|leave`;
+        if(!state.leaveNotes) state.leaveNotes = {};
+        state.leaveNotes[noteKey] = textarea.value.trim();
         saveLocalSoft();
       });
     });
@@ -1377,7 +1384,7 @@
 
   function openAssign(dayKey, shiftKey){
     refreshModalOptions();
-    els.mDay.value = dayKey || "Mon";
+    els.mDay.value = dayKey || "Mon1";
     els.mShift.value = shiftKey || "G";
     renderPeopleChecklist();
     updateModalPreview();
@@ -1469,7 +1476,7 @@
   }
 
   function clearWeek(){
-    if(!confirm("Bu haftadaki tüm atamaları temizlemek istiyor musun?")) return;
+    if(!confirm("Bu 2 haftadaki tüm atamaları temizlemek istiyor musun?")) return;
     state.assignments = {};
     ensureAssignments();
     saveLocalSoft();
@@ -1558,11 +1565,11 @@
       const data = JSON.parse(raw);
       if(!data || typeof data !== "object") return false;
       state = {
-        teamName: data.teamName || "Hafta Planı",
+        teamName: data.teamName || "2 Haftalık Plan",
         weekStartISO: data.weekStartISO || "",
         employees: Array.isArray(data.employees) && data.employees.length ? data.employees : [...demoEmployees],
         assignments: data.assignments || {},
-        cellNotes: data.cellNotes || {},
+        leaveNotes: data.leaveNotes || {},
         notes: data.notes || ""
       };
       return true;
@@ -1588,12 +1595,12 @@
       const v = els.weekStart.value;
       const base = startOfWeekMonday(new Date());
       if(v === "auto") state.weekStartISO = toISODate(base);
-      else if(v === "next") state.weekStartISO = toISODate(addDays(base, 7));
+      else if(v === "next") state.weekStartISO = toISODate(addDays(base, 14)); // 2 hafta sonrası
       else if(v === "custom"){
         const current = parseISODate(state.weekStartISO);
-        const picked = prompt("Hafta başlangıcı (Pazartesi) tarihi: YYYY-AA-GG", toISODate(current));
+        const picked = prompt("2 Hafta başlangıcı (Pazartesi) tarihi: YYYY-AA-GG", toISODate(current));
         if(!picked) { els.weekStart.value = "auto"; return; }
-        if(!/^\d{4}-\d{2}-\d{2}$/.test(picked)){ alert("Format hatalı. Örn: 2025-02-03"); els.weekStart.value="auto"; return; }
+        if(!/^\d{4}-\d{2}-\d{2}$/.test(picked)){ alert("Format hatalı. Örn: 2026-02-03"); els.weekStart.value="auto"; return; }
         state.weekStartISO = toISODate(startOfWeekMonday(parseISODate(picked)));
       }
       saveLocalSoft();
@@ -1615,9 +1622,6 @@
     document.querySelectorAll(".fadeUp").forEach(el => obs.observe(el));
   }
 
-  // Mobil için FAB event ekle
-  els.btnOpenAssignMobile.addEventListener("click", () => openAssign("Mon","G"));
-
   // Event listeners
   els.btnApplyEmployees.addEventListener("click", applyEmployees);
   els.btnResetDemo.addEventListener("click", resetDemo);
@@ -1626,7 +1630,7 @@
   els.btnExport.addEventListener("click", exportJSON);
   els.btnPrint.addEventListener("click", () => window.print());
   els.btnClearWeek.addEventListener("click", clearWeek);
-  els.btnOpenAssign.addEventListener("click", () => openAssign("Mon","G"));
+  els.btnOpenAssign.addEventListener("click", () => openAssign("Mon1","G"));
 
   els.teamName.addEventListener("input", () => { saveLocalSoft(); renderWeekHeader(); });
   els.notes.addEventListener("input", saveLocalSoft);
@@ -1638,20 +1642,13 @@
   els.mDay.addEventListener("change", () => { renderPeopleChecklist(); updateModalPreview(); });
   els.mShift.addEventListener("change", () => { renderPeopleChecklist(); updateModalPreview(); });
 
-  // Input focus için mobil klavye iyileştirmesi
-  document.querySelectorAll('input, textarea').forEach(el => {
-    el.addEventListener('focus', () => {
-      setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
-    });
-  });
-
   // Init
   const loaded = loadLocal();
   if(!loaded){
     state.weekStartISO = toISODate(startOfWeekMonday(new Date()));
     state.employees = [...demoEmployees];
     state.assignments = {};
-    state.cellNotes = {};
+    state.leaveNotes = {};
     state.notes = "";
   }
 
@@ -1660,7 +1657,6 @@
   els.notes.value = state.notes;
 
   ensureAssignments();
-  ensureCellNotes();
   setupWeekSelect();
   renderWeekHeader();
   renderTable();
